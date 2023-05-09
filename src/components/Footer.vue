@@ -1,26 +1,55 @@
 <template>
-    <footer>
-        <div class="nombres d-flex justify-content-center">
-            <p class = "mx-4">Valentina</p>   
+    <footer class="footer" style="background-color: #b9c7b8;">
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-md-6 offset-md-3 mb-4">
+            <h3>¡Síguenos en las redes sociales!</h3>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <h3>Contacto</h3>
+            <p>Dirección: Calle Principal, Ciudad</p>
+            <p>Teléfono: 123-456-7890</p>
+            <p>Email: info@suculentas.com</p>
+          </div>
+        </div>
+      </div>
     </footer>
-</template>
-    
-<script>
-
-    // export default {
-    // name: 'footer', 
-    // }
-
-</script>
-    
-<style>
-    footer {
-    background-color: #73daa1;
-/*     margin-top: 5em; */
-    padding: 50px;
-    text-align: center;
+  </template>
+  
+  <style>
+  .footer {
+    padding: 20px 0;
     font-size: 14px;
-    color: white;
-    }
-</style>
+  }
+  
+  .footer h3 {
+    color: #333;
+  }
+  
+  .social-icons {
+    margin-top: 20px;
+  }
+  
+  .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #333;
+    font-size: 20px;
+  }
+  
+  .social-icons a:hover {
+    color: #888;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1.5rem !important;
+  }
+  </style>
+  
