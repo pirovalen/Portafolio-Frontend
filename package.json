@@ -12,15 +12,22 @@
     "firebase": "^9.21.0",
     "jquery": "^3.6.4",
     "popper.js": "^1.16.1",
+    "save": "^2.9.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.5",
     "vue": "^3.2.47",
     "vue-router": "^4.0.3",
-    "vuex": "^4.0.0"
+    "vue-spinner": "^1.0.4",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "node-sass": "^8.0.0",
+    "sass-loader": "^13.2.2"
   },
   "browserslist": [
     "> 1%",
