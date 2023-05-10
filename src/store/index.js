@@ -1,22 +1,32 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
 import { collection, getDocs, doc, getDoc, deleteDoc, setDoc } from "firebase/firestore";
-import { db } from "@/auth/auth.service"
+import { db } from "@/auth/auth.service";
+
+// CONSTANTES CARRITO
+const AGREGAR_AL_CARRITO = 'AGREGAR_AL_CARRITO';
+const RESTAR_DEL_CARRITO = 'RESTAR_DEL_CARRITO';
+const ELIMINAR_DEL_CARRITO = 'ELIMINAR_DEL_CARRITO';
+const LIMPIAR_CARRITO = 'LIMPIAR_CARRITO';
 
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 
 export default createStore({
   state: {
     suculentas: [],
-    mostrarSuculenta: { categoria: '', codigo: '', descripcion: '', estado: '', nombre: '', precio: '', stock: '', vendidos: '', img: '' },
+    mostrarSuculenta: { Categoria: '', Codigo: '', Nombre: '', Descripcion: '', Precio: '', Stock: '', Vendidos: '', Estado: '', Imagen: '' },
     login: false,
     usuarioConectado: "",
     carga: false,
-    suculentasFiltradas: []
+    suculentasFiltradas: [],
+    carrito: []
   },
 
   getters: {
     loginTrue(state) {
       return state.login;
+    },
+    totalCarrito(state) {
+      return state.carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0);
     }
   },
 
@@ -25,20 +35,46 @@ export default createStore({
       state.login = payload;
     },
     getSuculentas(state, payload) {
-      state.suculentas = payload
-      state.suculentasFiltradas = payload
+      state.suculentas = payload;
+      state.suculentasFiltradas = payload;
     },
-    setMostrarSuculenta(state, payload) {
-      state.mostrarSuculenta = payload
+
+    getSuculenta(state,payload){
+      
+    state.mostrarSuculenta = payload
+    },
+
+    getMostrarSuculenta(state, payload) {
+      state.mostrarSuculenta = payload;
     },
     cambiaEstadoLogin(state) {
-      state.login = true
+      state.login = true;
     },
     cambiaEstadoLoginFalse(state) {
-      state.login = false
+      state.login = false;
     },
     getSuculentasFiltradas(state, payload) {
-      state.suculentasFiltradas = payload
+      state.suculentasFiltradas = payload;
+    },
+    [AGREGAR_AL_CARRITO](state, producto) {
+      const productoExistente = state.carrito.find((item) => item.Codigo === producto.Codigo);
+      if (productoExistente) {
+        productoExistente.cantidad++;
+      } else {
+        state.carrito.push({ ...producto, cantidad: 1 });
+      }
+    },
+    [RESTAR_DEL_CARRITO](state, producto) {
+      const productoExistente = state.carrito.find((item) => item.Codigo === producto.Codigo);
+      if (productoExistente && productoExistente.cantidad > 1) {
+        productoExistente.cantidad--;
+      }
+    },
+    [ELIMINAR_DEL_CARRITO](state, producto) {
+      state.carrito = state.carrito.filter((item) => item.Codigo !== producto.Codigo);
+    },
+    [LIMPIAR_CARRITO](state) {
+      state.carrito = [];
     }
   },
 
@@ -46,16 +82,16 @@ export default createStore({
     
     // CRUD -> CREATE 
     async crearSuculenta({ commit }, agregarSuculenta) {
-      await setDoc(doc(db, "Suculentas", agregarSuculenta.codigo), {
-        categoria: agregarSuculenta.categoria,
-        codigo: agregarSuculenta.codigo,
-        descripcion: agregarSuculenta.descripcion,
-        estado: agregarSuculenta.estado,
-        nombre: agregarSuculenta.nombre,
-        precio: agregarSuculenta.precio,
-        stock: agregarSuculenta.stock,
-        vendidos: agregarSuculenta.vendidos,
-        img: agregarSuculenta.img
+      await setDoc(doc(db, "Suculentas", agregarSuculenta.Codigo), {
+        Categoria: agregarSuculenta.Categoria,
+        Codigo: agregarSuculenta.Codigo,
+        Descripcion: agregarSuculenta.Descripcion,
+        Estado: agregarSuculenta.Estado,
+        Nombre: agregarSuculenta.Nombre,
+        Precio: agregarSuculenta.Precio,
+        Stock: agregarSuculenta.Stock,
+        Vendidos: agregarSuculenta.Vendidos,
+        Imagen: agregarSuculenta.Imagen
       });
       agregarSuculenta = '';
     },
@@ -72,28 +108,35 @@ export default createStore({
       commit('getSuculentas', suculentas);
     },
 
-    // Obtiene datos del item seleccionado 
-    async getSuculenta({ commit }, idSuculenta) {
+    // OBTIENE DATOS DE ITEM SELECCIONADO
+      async getSuculenta ({commit}, idSuculenta){
       const datosSuculenta = await getDoc(doc(db, "Suculentas", idSuculenta));
       const suculenta = datosSuculenta.data();
       suculenta.id = datosSuculenta.id;
-      state.suculentas=suculenta;
-      state.suculentasFiltradas=state.suculentas;
-      // commit('setMostrarSuculenta', suculenta);
-    },
+      suculenta.Categoria = datosSuculenta.data().Categoria;
+      suculenta.Codigo = datosSuculenta.data().Codigo;
+      suculenta.Nombre = datosSuculenta.data().Nombre;
+      suculenta.Descripcion = datosSuculenta.data().Descripcion;
+      suculenta.Precio = datosSuculenta.data().Precio;
+      suculenta.Stock = datosSuculenta.data().Stock;
+      suculenta.Vendido = datosSuculenta.data().Vendido;
+      suculenta.Estado = datosSuculenta.data().Estado;
+      suculenta.Imagen = datosSuculenta.data().Imagen;
+      commit('getSuculenta', suculenta)
+      },
 
     // CRUD -> UPDATE 
     async modificarSuculenta({ commit }, mostrarSuculenta) {
-      await setDoc(doc(db, "Suculentas", mostrarSuculenta.codigo), {
-        categoria: mostrarSuculenta.categoria,
-        codigo: mostrarSuculenta.codigo,
-        descripcion: mostrarSuculenta.descripcion,
-        estado: mostrarSuculenta.estado,
-        nombre: mostrarSuculenta.nombre,
-        precio: mostrarSuculenta.precio,
-        stock: mostrarSuculenta.stock,
-        vendidos: mostrarSuculenta.vendidos,
-        img: mostrarSuculenta.img
+      await setDoc(doc(db, "Suculentas", mostrarSuculenta.Codigo), {
+        Categoria: mostrarSuculenta.Categoria,
+        Codigo: mostrarSuculenta.Codigo,
+        Nombre: mostrarSuculenta.Nombre,
+        Descripcion: mostrarSuculenta.Descripcion,
+        Precio: mostrarSuculenta.Precio,
+        Stock: mostrarSuculenta.Stock,
+        Vendidos: mostrarSuculenta.Vendidos,
+        Estado: mostrarSuculenta.Estado,
+        Imagen: mostrarSuculenta.Imagen
       });
     },
 
