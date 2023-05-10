@@ -18,7 +18,7 @@
 
                 <ul id="list-contenedor" class="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
                     <li class="nav-item"><router-link class="link-nav px-3" to="/">¿Quiénes somos?</router-link></li>
-                    <li class="nav-item"><router-link class="link-nav px-3" to="/PlantasView">Plantas</router-link></li>
+                    <li class="nav-item"><router-link class="link-nav px-3" to="/PlantasView">Catálogo</router-link></li>
                     <li class="nav-item"><router-link class="link-nav px-3" to="/AdminView" v-if="(loginTrue)">Mantenedor</router-link></li>
                     <li class="nav-item"><router-link class="link-nav px-3" to="/LoginView" v-if="(!loginTrue)">Login</router-link></li>
                     <li class="nav-item"><button type="button" class="btn-logout px-3" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="(loginTrue)">
@@ -26,7 +26,7 @@
                     </button></li>
                     <li class="nav-item" style="margin-left: 1rem;">
                         <select class="form-select" id="form-selec" aria-label="Default select example" style="width: 250px;">
-                            <option selected disabled hidden>Open this select menu</option>
+                            <option selected disabled hidden>Encuentra tu planta</option>
                             <option class="form-option" value="1">Aeoniums</option>
                             <option class="form-option" value="2">Aloes</option>
                             <option class="form-option" value="3">Crassulas</option>

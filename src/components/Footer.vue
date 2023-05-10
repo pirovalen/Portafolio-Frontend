@@ -11,14 +11,6 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6 offset-md-3">
-            <h3>Contacto</h3>
-            <p>Dirección: Calle Principal, Ciudad</p>
-            <p>Teléfono: 123-456-7890</p>
-            <p>Email: info@suculentas.com</p>
-          </div>
-        </div>
       </div>
     </footer>
   </template>
