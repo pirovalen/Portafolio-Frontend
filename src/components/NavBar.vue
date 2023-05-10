@@ -21,20 +21,18 @@
                     <li class="nav-item"><router-link class="link-nav px-3" to="/PlantasView">Catálogo</router-link></li>
                     <li class="nav-item"><router-link class="link-nav px-3" to="/AdminView" v-if="(loginTrue)">Mantenedor</router-link></li>
                     <li class="nav-item"><router-link class="link-nav px-3" to="/LoginView" v-if="(!loginTrue)">Login</router-link></li>
-                    <li class="nav-item"><button type="button" class="btn-logout px-3" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="(loginTrue)">
-                    Logout
-                    </button></li>
-                    <li class="nav-item" style="margin-left: 1rem;">
-                        <select class="form-select" id="form-selec" aria-label="Default select example" style="width: 250px;">
+                    <li class="nav-item"><button type="button" class="btn-logout px-3" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="(loginTrue)">Logout</button></li>
+                    <!-- <li class="nav-item" style="margin-left: 1rem;">
+                        <select class="form-select" v-model="selectSuculentas" @change="filterSuculentas" id="selectSuculentas" aria-label="Default select example" style="width: 250px;">
                             <option selected disabled hidden>Encuentra tu planta</option>
                             <option class="form-option" value="1">Aeoniums</option>
-                            <option class="form-option" value="2">Aloes</option>
+                            <option class="form-option" value="2">Aloe</option>
                             <option class="form-option" value="3">Crassulas</option>
                             <option class="form-option" value="1">Echeverias</option>
                             <option class="form-option" value="2">Haworthias</option>
                             <option class="form-option" value="3">Sedums</option>
                           </select>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div> 
@@ -69,29 +67,33 @@ import { mapGetters, mapMutations } from 'vuex';
 import { auth } from "@/auth/auth.service";
 
 export default {
-        name: 'NavBar',
-         computed:{
-        ...mapGetters(['loginTrue']),
-         },
-        methods:{
-            ...mapMutations(['cambiaEstadoLoginFalse']),
+        
+    name: 'NavBar',
+    computed: {
+    getCartIconName() {
+    return this.cantCarrito > 0 ? 'cart-outline' : 'cart';
+    },
+    ...mapGetters(['loginTrue']),
+},
+    methods: {
+    ...mapMutations(['cambiaEstadoLoginFalse']),
+},
+            
+    // CERRAR SESIÓN - METODO SIGNOUT
 
-        // Cerrar sesión -> método signOut
-
-            async logout() {
-                try {
-                    await auth.signOut();
-                    this.$store.state.suculentas=[]
-                    this.$store.state.usuarioConectado=''
-                    this.cambiaEstadoLoginFalse();
-                    this.$router.push('/');
-                    
-                } catch(error){
-                    console.log(error)
-                }
-            }
+    async logout() {
+        try {
+        await auth.signOut();
+        this.$store.state.suculentas = [];
+        this.$store.state.usuarioConectado = '';
+        this.cambiaEstadoLoginFalse();
+        this.$router.push('/');
+        } catch(error) {
+        console.log(error);
         }
-    };
+    }
+}
+ 
 
 </script>
 
@@ -102,7 +104,7 @@ export default {
 .navbar{
     list-style-type: none;
     background-color: #b9c7b8;
-    color: azure;
+    color: white;
     padding: .5rem 2rem;
     font-size: 16px;
     margin: 0%;
@@ -122,7 +124,7 @@ export default {
 }
 .btn-logout{
     text-decoration: none;
-    color: azure;
+    color: white;
     border: none;
     transition: all 0.5s ease;
     background-color: #b9c7b8;
@@ -131,19 +133,19 @@ export default {
     transform: scale(1.2);
 }
 .btn.btn-no{
-    background-color: #83dbaf;
+    background-color: #C7b8c0;
     color: azure;
 }
 .btn.btn-no:hover{
-    background-color: #c4bce6e3;
+    background-color: #b9c7b8;
     color: azure;
 }
 .btn.btn-si{
-    background-color: #83dbaf;
+    background-color: #C7b8c0;
     color: azure;
 }
 .btn.btn-si:hover{
-    background-color: #c4bce6e3;
+    background-color: #b9c7b8;
     color: azure;
 }
 #exampleModal{
