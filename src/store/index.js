@@ -13,12 +13,12 @@ export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 export default createStore({
   state: {
     suculentas: [],
-    mostrarSuculenta: { Categoria: '', Codigo: '', Nombre: '', Descripcion: '', Precio: '', Stock: '', Vendidos: '', Estado: '', Imagen: '' },
+    mostrarSuculenta: { Categoria: '', Codigo: '', Nombre: '', Descripcion: '', Precio: '', Stock: '', Estado: '', Imagen: '' },
     login: false,
     usuarioConectado: "",
     carga: false,
     suculentasFiltradas: [],
-    carrito: []
+    carrito: [],
   },
 
   getters: {
@@ -57,7 +57,7 @@ export default createStore({
       state.suculentasFiltradas = payload;
     },
     [AGREGAR_AL_CARRITO](state, producto) {
-      const productoExistente = state.carrito.find((item) => item.Codigo === producto.Codigo);
+      const productoExistente = state.carrito.find((item) => item.Codigo === suculenta.Codigo);
       if (productoExistente) {
         productoExistente.cantidad++;
       } else {
@@ -65,7 +65,7 @@ export default createStore({
       }
     },
     [RESTAR_DEL_CARRITO](state, producto) {
-      const productoExistente = state.carrito.find((item) => item.Codigo === producto.Codigo);
+      const productoExistente = state.carrito.find((item) => item.Codigo === suculenta.Codigo);
       if (productoExistente && productoExistente.cantidad > 1) {
         productoExistente.cantidad--;
       }
@@ -90,7 +90,6 @@ export default createStore({
         Nombre: agregarSuculenta.Nombre,
         Precio: agregarSuculenta.Precio,
         Stock: agregarSuculenta.Stock,
-        Vendidos: agregarSuculenta.Vendidos,
         Imagen: agregarSuculenta.Imagen
       });
       agregarSuculenta = '';
@@ -119,7 +118,6 @@ export default createStore({
       suculenta.Descripcion = datosSuculenta.data().Descripcion;
       suculenta.Precio = datosSuculenta.data().Precio;
       suculenta.Stock = datosSuculenta.data().Stock;
-      suculenta.Vendido = datosSuculenta.data().Vendido;
       suculenta.Estado = datosSuculenta.data().Estado;
       suculenta.Imagen = datosSuculenta.data().Imagen;
       commit('getSuculenta', suculenta)
@@ -134,7 +132,6 @@ export default createStore({
         Descripcion: mostrarSuculenta.Descripcion,
         Precio: mostrarSuculenta.Precio,
         Stock: mostrarSuculenta.Stock,
-        Vendidos: mostrarSuculenta.Vendidos,
         Estado: mostrarSuculenta.Estado,
         Imagen: mostrarSuculenta.Imagen
       });

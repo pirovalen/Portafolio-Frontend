@@ -10,11 +10,6 @@
           <input name="password" type="password" v-model.trim="loginForm.password" required />
         </div>
         <button type="submit">Iniciar Sesión</button>
-        <!-- <br /><br /> -->
-        <!-- <div id="login" class="mt-2">  -->
-          <!-- <p>¿No tienes cuenta?</p>
-          <button type="submit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btnRegistro">Regístrate!</button> -->
-        <!-- </div> -->
       </form>
       <br />
       <div v-if="error" class="mb-4" >{{ error }}</div>
@@ -86,6 +81,7 @@
     },
   }
   </script>
+  
   <style>
   #login {
     display: flex;
@@ -104,12 +100,12 @@
     margin-bottom: 10px;
   }
   .form-group label {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-weight: 500;
   }
   .form-group input {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #C7b8c0;
     border-radius: 5px;
     font-size: 16px;
     outline: none;
@@ -117,19 +113,17 @@
   button[type="submit"] {
     margin-top: 1.5em;
     padding: 10px 20px;
-    background-color: #83dbaf;
+    background-color: #b9c7b8;
     border: none;
-    color: #fff;
+    color: #ffffff;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     width: 15em;
     letter-spacing: 2px;
   }
-  
-
-  
+    
   button[type="submit"]:hover {
-    background-color: #8B82B7;
+    background-color: #C7b8c0;
   }
   </style> 

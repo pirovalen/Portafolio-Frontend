@@ -149,7 +149,7 @@ export default {
   },
   data(){
     return{  
-      agregarSuculenta: {Categoria: '', Codigo: '', Nombre: '', Descripcion: '', Precio: '', Stock: '', Vendidos: '',Estado: '',  Imagen: ''},
+      agregarSuculenta: {Categoria: '', Codigo: '', Nombre: '', Descripcion: '', Precio: '', Stock: '',Estado: '',  Imagen: ''},
       color: '#c7b8c0',
       texto : '',    
     }
@@ -224,7 +224,7 @@ export default {
       // fUNCION PARA LIMPIAR CAMPOS FORMULARIO
 
       resetearSuculenta(){
-        this.agregarSuculenta = {Categoria: '', Codigo: '', Nombre: '', Descripcion: '', Precio: '', Stock: '', Vendidos: '',Estado: '',  Imagen: ''}
+        this.agregarSuculenta = {Categoria: '', Codigo: '', Nombre: '', Descripcion: '', Precio: '', Stock: '', Estado: '',  Imagen: ''}
       },
     },
 
@@ -267,46 +267,46 @@ export default {
 }
 
 .btn.btn-crear,.btn.btn-modificar{
-  background-color: #c4bce6e3;
+  background-color: #C7b8c0;
   color: azure;
   font-family: 'Montserrat', sans-serif;
   margin: 0;
 }
 
 .btn.btn-crear:hover,.btn.btn-modificar:hover{
-  background-color: #83dbaf;
+  background-color: #b9c7b8;
   color: azure;
 }
 
 .btn.btn-cancelar,.btn.btn-agregar,.btn.btn-buscar{
-  background-color: #c4bce6e3;
+  background-color: #C7b8c0;
   color: azure;
   font-family: 'Montserrat', sans-serif;
 }
 
 .btn.btn-agregar{
-  background-color: #83dbaf;
+  background-color: #C7b8c0;
   color: azure;
   font-family: 'Montserrat', sans-serif;
 }
 
 .btn.btn-cancelar:hover,.btn.btn-agregar:hover,.btn.btn-buscar:hover{
-  background-color: #83dbaf;
+  background-color: #b9c7b8;
   color: azure;
 }
 
 .btn.btn-agregar:hover{
-  background-color: #c4bce6e3;
+  background-color: #b9c7b8;
   color: azure;
 }
 
 .btn.btn-eliminar{
-  background-color: #83dbaf;
+  background-color: #b9c7b8;
   color: azure;
 }
 
 .btn.btn-eliminar:hover{
-  background-color: #83dbaf;
+  background-color: #b9c7b8;
   color: azure;
 }
 </style>
