@@ -3,7 +3,7 @@
   <div class="select-container"> 
     <select class="form-select" v-model="selectSuculentas" @change="filterSuculentas" aria-label="Default select example" style="width: 250px;">
       <!-- <option value="" disabled selected hiden>Encuentra tu planta</option> -->
-      <option selected disabled hidden>Encuentra tu planta</option>
+      <option value="" selected disabled hidden>Encuentra tu suculenta</option>
       <option class="form-option" value="Todas">Todas las suculentas</option>
       <option class="form-option" value="Aeonium">Aeoniums</option>
       <option class="form-option" value="Aloe">Aloes</option>

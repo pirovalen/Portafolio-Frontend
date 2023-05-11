@@ -39,9 +39,8 @@ export default createStore({
       state.suculentasFiltradas = payload;
     },
 
-    getSuculenta(state,payload){
-      
-    state.mostrarSuculenta = payload
+    getSuculenta(state, payload) {
+      state.mostrarSuculenta = payload;
     },
 
     getMostrarSuculenta(state, payload) {
@@ -56,22 +55,22 @@ export default createStore({
     getSuculentasFiltradas(state, payload) {
       state.suculentasFiltradas = payload;
     },
-    [AGREGAR_AL_CARRITO](state, producto) {
+    [AGREGAR_AL_CARRITO](state, suculenta) {
       const productoExistente = state.carrito.find((item) => item.Codigo === suculenta.Codigo);
       if (productoExistente) {
         productoExistente.cantidad++;
       } else {
-        state.carrito.push({ ...producto, cantidad: 1 });
+        state.carrito.push({ ...suculenta, cantidad: 1 });
       }
     },
-    [RESTAR_DEL_CARRITO](state, producto) {
+    [RESTAR_DEL_CARRITO](state, suculenta) {
       const productoExistente = state.carrito.find((item) => item.Codigo === suculenta.Codigo);
       if (productoExistente && productoExistente.cantidad > 1) {
         productoExistente.cantidad--;
       }
     },
-    [ELIMINAR_DEL_CARRITO](state, producto) {
-      state.carrito = state.carrito.filter((item) => item.Codigo !== producto.Codigo);
+    [ELIMINAR_DEL_CARRITO](state, suculenta) {
+      state.carrito = state.carrito.filter((item) => item.Codigo !== suculenta.Codigo);
     },
     [LIMPIAR_CARRITO](state) {
       state.carrito = [];
@@ -79,79 +78,91 @@ export default createStore({
   },
 
   actions: {
-    
-    // CRUD -> CREATE 
-    async crearSuculenta({ commit }, agregarSuculenta) {
-      await setDoc(doc(db, "Suculentas", agregarSuculenta.Codigo), {
-        Categoria: agregarSuculenta.Categoria,
-        Codigo: agregarSuculenta.Codigo,
-        Descripcion: agregarSuculenta.Descripcion,
-        Estado: agregarSuculenta.Estado,
-        Nombre: agregarSuculenta.Nombre,
-        Precio: agregarSuculenta.Precio,
-        Stock: agregarSuculenta.Stock,
-        Imagen: agregarSuculenta.Imagen
-      });
-      agregarSuculenta = '';
-    },
-
-    // CRUD -> READ 
-    async getSuculentas({ commit }) {
-      const suculentas = [];
-      const listado = await getDocs(collection(db, "Suculentas"));
-      listado.forEach(doc => {
-        let suculenta = doc.data();
-        suculenta.id = doc.id;
-        suculentas.push(suculenta);
-      });
-      commit('getSuculentas', suculentas);
-    },
-
-    // OBTIENE DATOS DE ITEM SELECCIONADO
-      async getSuculenta ({commit}, idSuculenta){
-      const datosSuculenta = await getDoc(doc(db, "Suculentas", idSuculenta));
-      const suculenta = datosSuculenta.data();
-      suculenta.id = datosSuculenta.id;
-      suculenta.Categoria = datosSuculenta.data().Categoria;
-      suculenta.Codigo = datosSuculenta.data().Codigo;
-      suculenta.Nombre = datosSuculenta.data().Nombre;
-      suculenta.Descripcion = datosSuculenta.data().Descripcion;
-      suculenta.Precio = datosSuculenta.data().Precio;
-      suculenta.Stock = datosSuculenta.data().Stock;
-      suculenta.Estado = datosSuculenta.data().Estado;
-      suculenta.Imagen = datosSuculenta.data().Imagen;
-      commit('getSuculenta', suculenta)
-      },
-
-    // CRUD -> UPDATE 
-    async modificarSuculenta({ commit }, mostrarSuculenta) {
-      await setDoc(doc(db, "Suculentas", mostrarSuculenta.Codigo), {
-        Categoria: mostrarSuculenta.Categoria,
-        Codigo: mostrarSuculenta.Codigo,
-        Nombre: mostrarSuculenta.Nombre,
-        Descripcion: mostrarSuculenta.Descripcion,
-        Precio: mostrarSuculenta.Precio,
-        Stock: mostrarSuculenta.Stock,
-        Estado: mostrarSuculenta.Estado,
-        Imagen: mostrarSuculenta.Imagen
-      });
-    },
-
-    // CRUD -> DELETE 
-    async eliminarSuculenta({ commit }, idBorrar) {
-      await deleteDoc(doc(db, "Suculentas", idBorrar));
-    },
-
-    async filtroName({ commit, state }, nombre) {
-      const filtro = state.suculentas.filter((suculenta) => {
-        let nombresSuculentas = suculenta.nombre.toLowerCase();
-        let nombreInput = nombre.toLowerCase();
-        if (nombresSuculentas.includes(nombreInput)) {
-          return suculenta;
-        }
-      });
-      commit("getSuculentasFiltradas", filtro);
-    },
+  // CRUD -> CREATE 
+  async crearSuculenta({ commit }, agregarSuculenta) {
+    await setDoc(doc(db, "Suculentas", agregarSuculenta.Codigo), {
+      Categoria: agregarSuculenta.Categoria,
+      Codigo: agregarSuculenta.Codigo,
+      Descripcion: agregarSuculenta.Descripcion,
+      Estado: agregarSuculenta.Estado,
+      Nombre: agregarSuculenta.Nombre,
+      Precio: agregarSuculenta.Precio,
+      Stock: agregarSuculenta.Stock,
+      Imagen: agregarSuculenta.Imagen
+    });
+    agregarSuculenta = '';
   },
-  modules: {}
-});
+
+  // CRUD -> READ 
+  async getSuculentas({ commit }) {
+    const suculentas = [];
+    const listado = await getDocs(collection(db, "Suculentas"));
+    listado.forEach(doc => {
+      let suculenta = doc.data();
+      suculenta.id = doc.id;
+      suculentas.push(suculenta);
+    });
+    commit('getSuculentas', suculentas);
+  },
+
+  // OBTIENE DATOS DE ITEM SELECCIONADO
+  async getSuculenta({ commit }, idSuculenta) {
+    const datosSuculenta = await getDoc(doc(db, "Suculentas", idSuculenta));
+    const suculenta = datosSuculenta.data();
+    suculenta.id = datosSuculenta.id;
+    suculenta.Categoria = datosSuculenta.data().Categoria;
+    suculenta.Codigo = datosSuculenta.data().Codigo;
+    suculenta.Nombre = datosSuculenta.data().Nombre;
+    suculenta.Descripcion = datosSuculenta.data().Descripcion;
+    suculenta.Precio = datosSuculenta.data().Precio;
+    suculenta.Stock = datosSuculenta.data().Stock;
+    suculenta.Estado = datosSuculenta.data().Estado;
+    suculenta.Imagen = datosSuculenta.data().Imagen;
+    commit('getSuculenta', suculenta);
+  },
+
+  // CRUD -> UPDATE 
+  async modificarSuculenta({ commit }, mostrarSuculenta) {
+    await setDoc(doc(db, "Suculentas", mostrarSuculenta.Codigo), {
+      Categoria: mostrarSuculenta.Categoria,
+      Codigo: mostrarSuculenta.Codigo,
+      Nombre: mostrarSuculenta.Nombre,
+      Descripcion: mostrarSuculenta.Descripcion,
+      Precio: mostrarSuculenta.Precio,
+      Stock: mostrarSuculenta.Stock,
+      Estado: mostrarSuculenta.Estado,
+      Imagen: mostrarSuculenta.Imagen
+    });
+  },
+
+  // CRUD -> DELETE 
+  async eliminarSuculenta({ commit }, idBorrar) {
+    await deleteDoc(doc(db, "Suculentas", idBorrar));
+  },
+
+  async filtroName({ commit, state }, nombre) {
+    const filtro = state.suculentas.filter((suculenta) => {
+      let nombresSuculentas = suculenta.Nombre.toLowerCase();
+      let nombreInput = nombre.toLowerCase();
+      if (nombresSuculentas.includes(nombreInput)) {
+        return suculenta;
+      }
+    });
+    commit("getSuculentasFiltradas", filtro);
+  },
+
+    // CARRITO
+  agregarAlCarrito({ commit }, suculenta) {
+    commit(AGREGAR_AL_CARRITO, suculenta);
+  },
+  restarDelCarrito({ commit }, suculenta) {
+    commit(RESTAR_DEL_CARRITO, suculenta);
+  },
+  eliminarDelCarrito({ commit }, suculenta) {
+    commit(ELIMINAR_DEL_CARRITO, suculenta);
+  },
+  limpiarCarrito({ commit }) {
+    commit(LIMPIAR_CARRITO);
+  },
+},
+})

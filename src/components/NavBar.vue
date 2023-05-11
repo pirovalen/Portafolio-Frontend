@@ -6,13 +6,8 @@
             </button>
 
             <div class="">
-
                 <img src="../assets/Logo2.png" alt="" width="100">
             </div>
-            <!-- <div class="d-flex flex-column mx-3" v-if="(loginTrue)">
-                <p class="mb-0 ms-4"> ¡Bienvenido!</p>                
-                <p class="mb-0"> {{$store.state.usuarioConectado}}</p>
-            </div> -->
 
             <div class="collapse navbar-collapse" id="navbarNav">
 
@@ -34,12 +29,15 @@
                           </select>
                     </li> -->
                 </ul>
+                <button class="btn-cart" @click="toggleOffcanvas">
+                    <i class="bi bi-cart-fill"></i>
+                  </button>
             </div>
         </div> 
     </nav>
     
 
-    <!-- Modal -->
+    <!-- MODAL LOGOUT -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -58,7 +56,17 @@
       </div>
     </div>
     </div>
-      
+
+    <!-- OFFCANVAS -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="cartOffcanvasLabel">Carrito de compra</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <cart-offcanvas></cart-offcanvas>
+    </div>
+  </div>  
 </template>
 
 <script>
@@ -77,7 +85,10 @@ export default {
 },
     methods: {
     ...mapMutations(['cambiaEstadoLoginFalse']),
-},
+    toggleOffcanvas() {
+      const offcanvas = new bootstrap.Offcanvas(document.getElementById('cartOffcanvas'));
+      offcanvas.toggle();
+    },
             
     // CERRAR SESIÓN - METODO SIGNOUT
 
@@ -91,10 +102,9 @@ export default {
         } catch(error) {
         console.log(error);
         }
-    }
-}
- 
-
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -159,5 +169,21 @@ export default {
 #form-selec {
     color: #b9c7b8; 
 }
-
+/* Estilos personalizados para el botón del carrito */
+.btn-cart {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .btn-cart:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Estilos personalizados para el offcanvas */
+  .offcanvas-body {
+    padding: 1rem;
+  }
 </style>
