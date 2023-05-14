@@ -15,15 +15,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="carro in carrito" :key="carro.cantidad">
-            <td>{{ carro.nombre }}</td>
+          <tr v-for="producto in carrito" :key="producto.Codigo">
+            <td>{{ producto.Nombre }}</td>
             <td class="cantidad">
-              <div class="suma">{{ carro.cantidad }}</div>
-              <font-awesome-icon :icon="['fas', 'arrow-up']" @click="agregar(carro)" class="me-2" style="color: #19b81c;"></font-awesome-icon>
-              <font-awesome-icon :icon="['fas', 'arrow-down']" @click="restar(carro)" style="color: #c93c2c;"></font-awesome-icon>
+              <div class="suma">{{ producto.Cantidad }}</div>
+              <font-awesome-icon :icon="['fas', 'arrow-up']" @click="agregar(producto)" class="me-2" style="color: #19b81c;"></font-awesome-icon>
+              <font-awesome-icon :icon="['fas', 'arrow-down']" @click="restar(producto)" style="color: #c93c2c;"></font-awesome-icon>
             </td>
-            <td>${{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(carro.precio) }}</td>
-            <td><ion-icon name="trash-outline" @click="eliminar(carro)"></ion-icon></td>
+            <td>${{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(producto.Precio) }}</td>
+            <td><ion-icon name="trash-outline" @click="eliminar(producto)"></ion-icon></td>
           </tr>
         </tbody>
       </table>
@@ -49,32 +49,32 @@
             <thead class="table-success">
               <tr>
                 <th scope="col">Producto</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Precio Unitario</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="carro in carrito" :key="carro.cantidad">
-              <td>{{ carro.nombre }}</td>
-              <td class="cantidad">
-                <div class="suma">{{ carro.cantidad }}</div>
-              </td>
-              <td>${{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(carro.precio) }}</td>
-            </tr>
-            <div class="summary m-3">
-              <p>Total compra: $ {{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(valores) }}</p>
-            </div>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
-          <router-link to="/" class="nav-link active" @click="cierreSesion">Aceptar</router-link>
-        </button>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio Unitario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="producto in carrito" :key="producto.Codigo">
+                <td>{{ producto.Nombre }}</td>
+                <td class="cantidad">
+                  <div class="suma">{{ producto.Cantidad }}</div>
+                </td>
+                <td>${{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(producto.Precio) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="summary m-3">
+          <p>Total compra: $ {{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(valores) }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+            <router-link to="/" class="nav-link active" @click="cierreSesion">Aceptar</router-link>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -82,6 +82,12 @@ import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'CartOffCanvas',
+  props: {
+    carrito: {
+      type: Array,
+      default: () => [],
+    },
+  },
   computed: {
     ...mapState(['carrito', 'valores'])
   },

@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import AdminView from '../views/AdminView.vue'
 import PlantasView from '../views/PlantasView.vue'
+import NotFound from '../views/NotFound.vue'
 
 
 const routes = [
@@ -26,7 +27,9 @@ const routes = [
     name: 'PlantasView',
     component: PlantasView
   },
+  { path: '/:catchAll(.*)', component: NotFound }
 ]
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

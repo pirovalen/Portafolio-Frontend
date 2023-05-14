@@ -1,40 +1,30 @@
-<template> 
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <button class="navbar-toggler mx-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<template>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <div class="d-flex align-items-center">
+        <div>
+          <img src="../assets/Logo2.png" alt="" width="100">
+        </div>
 
-            <div class="">
-                <img src="../assets/Logo2.png" alt="" width="100">
-            </div>
+        <button class="navbar-toggler mx-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-                <ul id="list-contenedor" class="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
-                    <li class="nav-item"><router-link class="link-nav px-3" to="/">¿Quiénes somos?</router-link></li>
-                    <li class="nav-item"><router-link class="link-nav px-3" to="/PlantasView">Catálogo</router-link></li>
-                    <li class="nav-item"><router-link class="link-nav px-3" to="/AdminView" v-if="(loginTrue)">Mantenedor</router-link></li>
-                    <li class="nav-item"><router-link class="link-nav px-3" to="/LoginView" v-if="(!loginTrue)">Login</router-link></li>
-                    <li class="nav-item"><button type="button" class="btn-logout px-3" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="(loginTrue)">Logout</button></li>
-                    <!-- <li class="nav-item" style="margin-left: 1rem;">
-                        <select class="form-select" v-model="selectSuculentas" @change="filterSuculentas" id="selectSuculentas" aria-label="Default select example" style="width: 250px;">
-                            <option selected disabled hidden>Encuentra tu planta</option>
-                            <option class="form-option" value="1">Aeoniums</option>
-                            <option class="form-option" value="2">Aloe</option>
-                            <option class="form-option" value="3">Crassulas</option>
-                            <option class="form-option" value="1">Echeverias</option>
-                            <option class="form-option" value="2">Haworthias</option>
-                            <option class="form-option" value="3">Sedums</option>
-                          </select>
-                    </li> -->
-                </ul>
-                <button class="btn-cart" @click="toggleOffcanvas">
-                    <i class="bi bi-cart-fill"></i>
-                  </button>
-            </div>
-        </div> 
-    </nav>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul id="list-contenedor" class="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
+          <li class="nav-item"><router-link class="link-nav px-3" to="/">¿Quiénes somos?</router-link></li>
+          <li class="nav-item"><router-link class="link-nav px-3" to="/PlantasView">Catálogo</router-link></li>
+          <li class="nav-item"><router-link class="link-nav px-3" to="/AdminView" v-if="(loginTrue)">Mantenedor</router-link></li>
+          <li class="nav-item"><router-link class="link-nav px-3" to="/LoginView" v-if="(!loginTrue)">Login</router-link></li>
+          <li class="nav-item"><button type="button" class="btn-logout px-3" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="(loginTrue)">Logout</button></li>
+        </ul>
+        <button class="btn-cart" @click="toggleOffcanvas">
+          <i class="bi bi-bag-fill" style="color: #888"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
     
 
     <!-- MODAL LOGOUT -->
@@ -70,42 +60,53 @@
 </template>
 
 <script>
-
 import { mapGetters, mapMutations } from 'vuex';
 import { auth } from "@/auth/auth.service";
 
 export default {
-        
-    name: 'NavBar',
-    computed: {
+  name: 'NavBar',
+  computed: {
     getCartIconName() {
-    return this.cantCarrito > 0 ? 'cart-outline' : 'cart';
+      return this.cantCarrito > 0 ? 'cart-outline' : 'cart';
     },
     ...mapGetters(['loginTrue']),
-},
-    methods: {
+  },
+  data() {
+    return {
+      navbarOpen: false,
+    };
+  },
+  methods: {
     ...mapMutations(['cambiaEstadoLoginFalse']),
     toggleOffcanvas() {
       const offcanvas = new bootstrap.Offcanvas(document.getElementById('cartOffcanvas'));
       offcanvas.toggle();
     },
-            
-    // CERRAR SESIÓN - METODO SIGNOUT
-
+    toggleNavbar() {
+      this.navbarOpen = !this.navbarOpen;
+      if (!this.navbarOpen) {
+        const navbar = document.getElementById('navbarNav');
+        const bootstrapNavbar = bootstrap.Collapse.getInstance(navbar);
+        if (bootstrapNavbar) {
+          bootstrapNavbar.hide();
+        }
+      }
+    },
     async logout() {
-        try {
+      try {
         await auth.signOut();
         this.$store.state.suculentas = [];
         this.$store.state.usuarioConectado = '';
         this.cambiaEstadoLoginFalse();
         this.$router.push('/');
-        } catch(error) {
+      } catch (error) {
         console.log(error);
-        }
+      }
     },
   },
 };
 </script>
+
 
 <style scoped>
 #login{
