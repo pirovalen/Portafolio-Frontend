@@ -91,16 +91,17 @@
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     color: #2c3e50;
-    margin-top: 50px;
-    margin-top: -20px;
+    margin-top: 74px !important; /* Ajusta el margen superior para separarlo más del navbar */
+    margin-bottom: 74px !important; /* Ajusta el margen inferior para crear más espacio */
   }
+  
   .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
   }
   .form-group label {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-weight: 500;
   }
   .form-group input {

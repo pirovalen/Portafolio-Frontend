@@ -3,7 +3,7 @@
   <div class="select-container"> 
     <select class="form-select" v-model="selectSuculentas" @change="filterSuculentas" aria-label="Default select example" style="width: 250px;">
       <!-- <option value="" disabled selected hiden>Encuentra tu planta</option> -->
-      <option value="" selected disabled hidden>Encuentra tu suculenta</option>
+      <option value="" disabled selected hidden>{{ selectSuculentasPlaceholder }}</option>
       <option class="form-option" value="Todas">Todas las suculentas</option>
       <option class="form-option" value="Aeonium">Aeoniums</option>
       <option class="form-option" value="Aloe">Aloes</option>
@@ -39,23 +39,30 @@
               <li class="list-group-item">Nombre: {{ suculenta.Nombre }}</li>
               <li class="list-group-item">Precio: {{ new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'  }).format(suculenta.Precio) }}</li>
             </ul>
-            <button :class="suculenta.Estado === 'Activo' ? 'btnComprar' : 'btnDisabled'" :disabled="suculenta.Estado === 'Activo'">
+            <!-- <button :class="suculenta.Estado === 'Activo' ? 'btnComprar' : 'btnDisabled'" :disabled="suculenta.Estado === 'Activo'" @click="agregarProducto(suculenta)">
               {{ suculenta.Estado === 'Activo' ? 'Comprar' : 'No disponible' }}
-            </button>
+            </button> -->
+            <!-- <button @click="verEstado(suculenta.Estado)">click</button> -->
+            <button :class="suculenta.Estado === 'Activo' ? 'btnComprar' : 'btnDisabled'" :disabled="suculenta.Estado === 'Inactivo'">{{suculenta.Estado === 'Activo' ? 'Comprar' : 'No disponible'}}</button>
           </div>
         </div>
       </div>
     </div>
-</template>
+  <SucculentsApi/>
+  <CartOffCanvas/> 
+  </template>
 
   
     
 <script>
 import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
 import {mapActions, mapState} from 'vuex' 
+import Swal from 'sweetalert2';
+import SucculentsApi from '@/components/SucculentsApi.vue';
+import CartOffCanvas from '@/components/CartOffCanvas.vue';
 
 export default {
-    name: "Home-View",
+    name: "PlantasView",
     data() {
         return {
         color:'#c7b8c0 ',
@@ -64,7 +71,9 @@ export default {
     },
 
     components: {
-        FadeLoader
+        FadeLoader,
+        SucculentsApi,
+        CartOffCanvas
     }, 
 
     created(){
@@ -72,31 +81,51 @@ export default {
     },
 
     methods: {
-        ...mapActions(['getSuculentas']),
-        filterSuculentas() {
-         
+  ...mapActions(['getSuculentas', 'agregarProducto']),
+  // verEstado(estado){
+  //   console.log(estado);
+  // },
+  filterSuculentas() {
+    if (this.selectSuculentas === 'Todas') {
+      this.$store.state.suculentas = this.$store.state.suculentasFiltradas;
+    } else {
+      const searchTerm = this.selectSuculentas.toLowerCase();
+      this.$store.state.suculentas = this.$store.state.suculentasFiltradas.filter(element => {
+        const name1 = element.Categoria.toLowerCase();
+        return name1.includes(searchTerm);
+      });
+    }
+  },
+  agregarProducto(suculenta) {
+    const producto = {
+      nombre: suculenta.Nombre,
+      cantidad: 1,
+      precio: suculenta.Precio
+    };
+    this.agregarProducto(producto);
 
-if (this.selectSuculentas === 'Todas') {
-  this.$store.state.suculentas = this.$store.state.suculentasFiltradas;
-} else {
-  const searchTerm = this.selectSuculentas.toLowerCase();
-  this.$store.state.suculentas = this.$store.state.suculentas.filter(element => {
-    const name1 = element.Categoria.toLowerCase();
-   
-    return name1.includes(searchTerm) ;
-  });
-
- }
+    if (this.selectSuculentas === 'Todas') {
+      this.$store.state.suculentas = this.$store.state.suculentasFiltradas;
+    } else {
+      const searchTerm = this.selectSuculentas.toLowerCase();
+      this.$store.state.suculentas = this.$store.state.suculentas.filter(element => {
+        const name1 = element.Categoria.toLowerCase();
+        return name1.includes(searchTerm);
+      });
+    }
+  }
 },
-    },
 
     computed : {
+      selectSuculentasPlaceholder() {
+      return this.selectSuculentas === '' ? 'Encuentra tu suculenta' : '';
+    },
         ...mapState(['suculentas'])
     },
 
     showAlert(texto1, texto2){
         Swal.fire({
-            title:texto1,
+            title: texto1,
             text: texto2,
             icon: 'success',
             confirmButtonText: 'Ok'
@@ -104,12 +133,12 @@ if (this.selectSuculentas === 'Todas') {
     },
 
     
-    async mounted(){
+    mounted(){
         this.$store.state.suculentas=[]
-        if(this.$store.state.usuarioConectado===''){    
-            this.showAlert('No hay usuario conectado', 'Debe loguearse')
-            this.$router.push('/login')
-        }
+        // if(this.$store.state.usuarioConectado===''){    
+        //     this.showAlert('No hay usuario conectado', 'Debe loguearse')
+        //     this.$router.push('/login')
+        // }
     }
 }
 </script>

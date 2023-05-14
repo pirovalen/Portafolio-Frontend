@@ -1,46 +1,35 @@
 <template>
-  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
     <div class="carousel-inner">
-      <div class="carousel-item active align-middle h-50">
-        <img src="../assets/1.jpg" class="d-block w-100" alt="">
+      <div class="carousel-item active align-middle">
+        <img src="../assets/1.jpg" class="imgHome d-block w-100" alt="">
         <div class="carousel-caption d-none d-md-block align-middle d-flex flex-column justify-content-center">
-          <h5>Título 1</h5>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, a voluptate corrupti magni praesentium atque illo in amet. Quos quibusdam earum cumque beatae? Cumque explicabo consequatur qui et illum blanditiis!</p>
+          <h5>Amor por las suculentas</h5>
+          <p>En nuestra página, encontrarás un emprendimiento familiar que nació del amor y la fascinación por las suculentas. Cada una de estas plantas representa un capítulo en nuestra historia, desde los primeros brotes hasta el crecimiento de nuestro negocio. </p>
         </div>
       </div>
-      <div class="carousel-item align-middle h-50">
-        <img src="../assets/2.jpg" class="d-block w-100" alt="">
+      <div class="carousel-item align-middle">
+        <img src="../assets/2.jpg" class="imgHome d-block w-100" alt="">
         <div class="carousel-caption d-none d-md-block align-middle d-flex flex-column justify-content-center">
-          <h5>Título 2</h5>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi beatae neque corrupti quasi architecto dignissimos laborum suscipit explicabo possimus repellendus porro, animi similique mollitia maxime repellat velit asperiores assumenda fugiat.</p>
+          <h5>Únicas y exclusivas</h5>
+          <p>Te ofrecemos una selección cuidadosamente curada de suculentas que son verdaderas joyas botánicas. Nos enorgullece presentarte variedades de suculentas que son difíciles de encontrar en otros lugares. Te invitamos a explorar nuestro catálogo y descubrir la belleza única que estas plantas .</p>
         </div>
       </div>
-      <div class="carousel-item align-middle h-50">
-        <img src="../assets/3.jpg" class="d-block w-100" alt="">
+      <div class="carousel-item align-middle">
+        <img src="../assets/1.jpg" class="imgHome d-block w-100" alt="">
         <div class="carousel-caption d-none d-md-block align-middle d-flex flex-column justify-content-center">
-          <h5>Título 3</h5>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus sit suscipit tempore, animi vel error quae hic in accusamus nisi fugiat dolores fuga pariatur autem laboriosam maiores ea vitae eligendi!</p>
+          <h5>Experiencia y calidad</h5>
+          <p>Nos comprometemos a ofrecerte suculentas de la más alta calidad. Nos aseguramos de que cada planta que llegue a tus manos esté en perfectas condiciones. Cuidamos cada detalle, desde la selección de las variedades más hermosas hasta el embalaje cuidadoso para el envío. </p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "Home-View",
-}
-</script>
-
 <style>
-.carousel-item {
-  height: 600px;
-}
-
 .carousel-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-height: 430px !important;
+  object-fit: contain;
 }
 
 .carousel-caption {
@@ -48,28 +37,17 @@ export default {
   border-radius: 1rem;
   max-width: 800px;
   margin-inline: auto;
-  margin-bottom: 150px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .carousel-item h5 {
   font-family: 'Montserrat', sans-serif;
-  font-size: 50px;
+  font-size: 60px;
 }
 
 .carousel-item p {
   font-family: 'Montserrat', sans-serif;
   font-size: 20px;
-}
-
-.titulo {
-  text-align: center;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.subtitulo {
-  text-align: center;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
-  padding-inline: 15rem;
 }
 </style>
