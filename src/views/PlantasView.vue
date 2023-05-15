@@ -43,20 +43,20 @@
               {{ suculenta.Estado === 'Activo' ? 'Comprar' : 'No disponible' }}
             </button> -->
             <!-- <button @click="verEstado(suculenta.Estado)">click</button> -->
-            <button :class="suculenta.Estado === 'Activo' ? 'btnComprar' : 'btnDisabled'" :disabled="suculenta.Estado === 'Inactivo'">{{suculenta.Estado === 'Activo' ? 'Comprar' : 'No disponible'}}</button>
+            <button @click="agregar(suculenta)" :class="suculenta.Estado === 'Activo' ? 'btnComprar' : 'btnDisabled'" :disabled="suculenta.Estado === 'Inactivo'">{{suculenta.Estado === 'Activo' ? 'Comprar' : 'No disponible'}}</button>
           </div>
         </div>
       </div>
     </div>
   <SucculentsApi/>
-  <CartOffCanvas/> 
+  <CartOffCanvas></CartOffCanvas>
   </template>
 
   
     
 <script>
 import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
-import {mapActions, mapState} from 'vuex' 
+import {mapMutations, mapActions, mapState} from 'vuex' 
 import Swal from 'sweetalert2';
 import SucculentsApi from '@/components/SucculentsApi.vue';
 import CartOffCanvas from '@/components/CartOffCanvas.vue';
@@ -81,10 +81,12 @@ export default {
     },
 
     methods: {
-  ...mapActions(['getSuculentas', 'agregarProducto']),
+      ...mapMutations(['agregar']),
+    ...mapActions(['getSuculentas', 'agregarProducto']),
   // verEstado(estado){
   //   console.log(estado);
   // },
+
   filterSuculentas() {
     if (this.selectSuculentas === 'Todas') {
       this.$store.state.suculentas = this.$store.state.suculentasFiltradas;

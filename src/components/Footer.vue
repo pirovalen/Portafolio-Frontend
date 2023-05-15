@@ -19,8 +19,10 @@
   bottom: 0;
   left: 0;
   width: 100%;
+  height: 10em;
   padding: 20px 0;
   font-size: 14px;
+  margin-top: 7.2em;
 }
 
 .footer h3 {
@@ -42,7 +44,4 @@
   color: #888;
 }
 
-.mb-4 {
-  margin-bottom: 1.5rem !important;
-}
 </style>

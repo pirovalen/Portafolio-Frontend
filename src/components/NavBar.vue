@@ -25,7 +25,6 @@
       </div>
     </div>
   </nav>
-    
 
     <!-- MODAL LOGOUT -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,22 +45,13 @@
       </div>
     </div>
     </div>
-
-    <!-- OFFCANVAS -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="cartOffcanvasLabel">Carrito de compra</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <cart-offcanvas></cart-offcanvas>
-    </div>
-  </div>  
+    <CartOffCanvas></CartOffCanvas>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 import { auth } from "@/auth/auth.service";
+import CartOffCanvas from './CartOffCanvas.vue'
 
 export default {
   name: 'NavBar',
@@ -76,6 +66,9 @@ export default {
       navbarOpen: false,
     };
   },
+  components: {
+         CartOffCanvas
+    }, 
   methods: {
     ...mapMutations(['cambiaEstadoLoginFalse']),
     toggleOffcanvas() {
@@ -119,6 +112,7 @@ export default {
     padding: .5rem 2rem;
     font-size: 16px;
     margin: 0%;
+    height: 10em;
     font-family: 'Montserrat', sans-serif;
 }
 .link-nav{

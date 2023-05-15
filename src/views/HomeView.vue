@@ -28,7 +28,7 @@
 
 <style>
 .carousel-item img {
-  max-height: 430px !important;
+  max-height: 432px !important;
   object-fit: contain;
 }
 
@@ -37,8 +37,8 @@
   border-radius: 1rem;
   max-width: 800px;
   margin-inline: auto;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 80px;
+  margin-bottom: 20px;
 }
 
 .carousel-item h5 {

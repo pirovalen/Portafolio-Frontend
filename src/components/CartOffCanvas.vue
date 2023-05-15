@@ -1,7 +1,7 @@
 <template>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="cartOffcanvasLabel">Carrito de compra</h5>
+      <h5 class="offcanvas-title" id="cartOffcanvasLabel">Carro de Compra</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -15,12 +15,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="producto in carrito" :key="producto.Codigo">
+          <tr v-for="producto in carrito" :key="producto.Cantidad">
             <td>{{ producto.Nombre }}</td>
             <td class="cantidad">
               <div class="suma">{{ producto.Cantidad }}</div>
-              <font-awesome-icon :icon="['fas', 'arrow-up']" @click="agregar(producto)" class="me-2" style="color: #19b81c;"></font-awesome-icon>
-              <font-awesome-icon :icon="['fas', 'arrow-down']" @click="restar(producto)" style="color: #c93c2c;"></font-awesome-icon>
+              <ion-icon name="add" @click="agregar(producto)"></ion-icon>
+              <ion-icon name="remove" @click="restar(producto)"></ion-icon>
+              <!-- <font-awesome-icon :icon="['fas', 'arrow-up']" @click="agregar(producto)" class="me-2" style="color: #19b81c;"></font-awesome-icon>
+              <font-awesome-icon :icon="['fas', 'arrow-down']" @click="restar(producto)" style="color: #c93c2c;"></font-awesome-icon> -->
             </td>
             <td>${{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(producto.Precio) }}</td>
             <td><ion-icon name="trash-outline" @click="eliminar(producto)"></ion-icon></td>
@@ -36,7 +38,6 @@
       </div>
     </div>
   </div>
-
   <div class="modal fade" id="finalizarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -72,33 +73,38 @@
             <router-link to="/" class="nav-link active" @click="cierreSesion">Aceptar</router-link>
           </button>
         </div>
-      </div>
+      </div> 
     </div>
   </div>
 </template>
 
-<script>
-import { mapState, mapMutations } from 'vuex';
+<script >
+
+import {mapState, mapMutations} from 'vuex'
+
 
 export default {
-  name: 'CartOffCanvas',
-  props: {
-    carrito: {
-      type: Array,
-      default: () => [],
-    },
+    name:'App',
+data(){
+    return{
+        productos: [],
+    };
+},
+
+computed: {
+    ...mapState(['carrito']),
+    ...mapState(['valores'])    
   },
-  computed: {
-    ...mapState(['carrito', 'valores'])
-  },
-  methods: {
-    ...mapMutations(['agregar', 'restar', 'eliminar', 'limpiarCarro']),
-    cierreSesion() {
-      // Limpiar el carrito y los valores al cerrar la sesión
-      this.limpiarCarro();
-    }
-  }
+
+methods: {
+    ...mapMutations(['agregar']),
+    ...mapMutations(['restar']),
+    ...mapMutations(['eliminar']),
+    ...mapMutations(['limpiarCarro'])
 }
+
+}
+
 </script>
 
 <style scoped>
