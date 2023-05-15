@@ -81,9 +81,9 @@
             <input type="number" min="0" class="form-control" v-model="mostrarSuculenta.Stock">
             <label for="state-obj" class="form-label">Estado:</label>
           <br>
-          <select id="estado" name="estado" v-model="mostrarSuculenta.Estado">
-                  <option value="Activo" :selected="mostrarSuculenta.Estado === 'Activo'">Activo</option>
-                  <option value="Inactivo" :selected="mostrarSuculenta.Estado === 'Inactivo'">Inactivo</option>
+          <select id="estado" name="estado" class="form-control" v-model="mostrarSuculenta.Estado">
+            <option value="Activo" :selected="mostrarSuculenta.Estado === 'Activo'">Activo</option>
+            <option value="Inactivo" :selected="mostrarSuculenta.Estado === 'Inactivo'">Inactivo</option>
           </select>
           <br>
             <label for="imagen-obj" class="form-label">Imagen</label>
@@ -122,8 +122,13 @@
           <input type="number" min="1" class="form-control" v-model="agregarSuculenta.Precio">
           <label for="stock-obj" class="form-label">Stock</label>
           <input type="number" min="0" class="form-control" v-model="agregarSuculenta.Stock">
-          <label for="state-obj" class="form-label">Estado</label>
-          <input type="text" class="form-control" v-model="agregarSuculenta.Estado">
+          <label for="state-obj" class="form-label">Estado:</label>
+          <br>
+          <select id="estado" name="estado" class="form-control" v-model="mostrarSuculenta.Estado">
+            <option value="Activo" :selected="mostrarSuculenta.Estado === 'Activo'">Activo</option>
+            <option value="Inactivo" :selected="mostrarSuculenta.Estado === 'Inactivo'">Inactivo</option>
+          </select>
+          <br>
           <label for="img-obj" class="form-label">Imagen</label>
           <input type="text" class="form-control" v-model="agregarSuculenta.Imagen">
           <div class="modal-footer">

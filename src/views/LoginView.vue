@@ -21,7 +21,6 @@
   import { SET_LOGIN_STATE } from "@/store/index";
   import {mapMutations} from 'vuex';
   
-  
   export default {
     data() {
       return {
@@ -91,8 +90,8 @@
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     color: #2c3e50;
-    margin-top: 74px !important; /* Ajusta el margen superior para separarlo más del navbar */
-    margin-bottom: 74px !important; /* Ajusta el margen inferior para crear más espacio */
+    margin-top: 124px !important; /* Ajusta el margen superior para separarlo más del navbar */
+    margin-bottom: 126px !important; /* Ajusta el margen inferior para crear más espacio */
   }
   
   .form-group {

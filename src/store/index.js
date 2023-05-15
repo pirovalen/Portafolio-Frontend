@@ -2,11 +2,6 @@ import { createStore } from 'vuex';
 import { collection, getDocs, doc, getDoc, deleteDoc, setDoc } from "firebase/firestore";
 import { db } from "@/auth/auth.service";
 
-// CONSTANTES CARRITO
-const AGREGAR_AL_CARRITO = 'AGREGAR_AL_CARRITO';
-const RESTAR_DEL_CARRITO = 'RESTAR_DEL_CARRITO';
-const ELIMINAR_DEL_CARRITO = 'ELIMINAR_DEL_CARRITO';
-const LIMPIAR_CARRITO = 'LIMPIAR_CARRITO';
 
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 
@@ -18,7 +13,9 @@ export default createStore({
     usuarioConectado: "",
     carga: false,
     suculentasFiltradas: [],
-    carrito: [],
+    carrito: JSON.parse(localStorage.getItem('carrito')) ? JSON.parse(localStorage.getItem('carrito')) : [],
+    valores: JSON.parse(localStorage.getItem('valores')) ? JSON.parse(localStorage.getItem('valores')) : 0,
+    cantCarrito: JSON.parse(localStorage.getItem('cantCarrito')) ? JSON.parse(localStorage.getItem('cantCarrito'))   : 0,
   },
 
   getters: {
@@ -26,7 +23,7 @@ export default createStore({
       return state.login;
     },
     totalCarrito(state) {
-      return state.carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0);
+      return state.carrito.reduce((total, producto) => total + producto.Precio * producto.Cantidad, 0);
     }
   },
 
@@ -55,26 +52,69 @@ export default createStore({
     getSuculentasFiltradas(state, payload) {
       state.suculentasFiltradas = payload;
     },
-    [AGREGAR_AL_CARRITO](state, suculenta) {
-      const productoExistente = state.carrito.find((item) => item.Codigo === suculenta.Codigo);
-      if (productoExistente) {
-        productoExistente.cantidad++;
-      } else {
-        state.carrito.push({ ...suculenta, cantidad: 1 });
+ 
+    agregar(state, payload){
+      console.log(state.carrito)
+      const yaExiste = state.carrito.some((element) => { 
+          return payload.id === element.id
+      })
+      
+      if(yaExiste){
+          payload.Cantidad = payload.Cantidad + 1 
+          state.valores = state.valores+(payload.Precio) 
+      }else{
+          state.carrito.push(payload) 
+          // state.carrito = JSON.parse(localStorage.getItem('carrito')),
+          state.valores = state.valores+(payload.Precio) 
       }
-    },
-    [RESTAR_DEL_CARRITO](state, suculenta) {
-      const productoExistente = state.carrito.find((item) => item.Codigo === suculenta.Codigo);
-      if (productoExistente && productoExistente.cantidad > 1) {
-        productoExistente.cantidad--;
-      }
-    },
-    [ELIMINAR_DEL_CARRITO](state, suculenta) {
-      state.carrito = state.carrito.filter((item) => item.Codigo !== suculenta.Codigo);
-    },
-    [LIMPIAR_CARRITO](state) {
-      state.carrito = [];
+      state.cantCarrito = state.carrito.length; 
+      localStorage.setItem('carrito', JSON.stringify(state.carrito))
+      localStorage.setItem('valores', JSON.stringify(state.valores))
+      localStorage.setItem('cantCarrito', JSON.stringify(state.carrito.length))
+  },
+  restar(state, payload){
+
+    if(payload.Cantidad == 1){
+        state.carrito = state.carrito.filter((element)=>{
+        return element.id != payload.id;
+        })
+        state.valores = state.valores - (payload.Precio * payload.Cantidad)
+        payload.Cantidad = 1
     }
+    else if(payload.cantidad > 1){
+        payload.Cantidad = payload.Cantidad - 1
+        state.valores = state.valores - (payload.Precio)
+    }
+    state.cantCarrito = state.carrito.length;
+    localStorage.setItem('carrito', JSON.stringify(state.carrito))
+    localStorage.setItem('valores', JSON.stringify(state.valores))
+    localStorage.setItem('cantCarrito', JSON.stringify(state.carrito.length))
+},
+
+eliminar(state, payload){
+    state.carrito = state.carrito.filter((element)=>{
+        return element.id != payload.id;
+    })
+    state.valores = state.valores - (payload.Precio * payload.Cantidad)
+    payload.Cantidad = 1
+
+    state.cantCarrito = state.carrito.length;
+    localStorage.setItem('carrito', JSON.stringify(state.carrito))
+    localStorage.setItem('valores', JSON.stringify(state.valores))
+    localStorage.setItem('cantCarrito', JSON.stringify(state.carrito.length))
+},
+
+limpiarCarro(state,payload){
+    state.carrito = [];
+    state.valores = 0;
+    payload.forEach(element => {
+        element.Cantidad = 1;
+    });
+    state.cantCarrito = state.carrito.length;
+    localStorage.setItem('carrito', JSON.stringify(state.carrito));
+    localStorage.setItem('valores', JSON.stringify(state.valores));
+    localStorage.setItem('cantCarrito', JSON.stringify(state.carrito.length))
+},
   },
 
   actions: {
@@ -151,18 +191,5 @@ export default createStore({
     commit("getSuculentasFiltradas", filtro);
   },
 
-    // CARRITO
-  agregarAlCarrito({ commit }, suculenta) {
-    commit(AGREGAR_AL_CARRITO, suculenta);
-  },
-  restarDelCarrito({ commit }, suculenta) {
-    commit(RESTAR_DEL_CARRITO, suculenta);
-  },
-  eliminarDelCarrito({ commit }, suculenta) {
-    commit(ELIMINAR_DEL_CARRITO, suculenta);
-  },
-  limpiarCarrito({ commit }) {
-    commit(LIMPIAR_CARRITO);
-  },
 },
 })

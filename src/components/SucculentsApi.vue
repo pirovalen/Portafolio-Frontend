@@ -1,13 +1,16 @@
 <template>
-  <div v-if="listaSuculentas">
-    <div v-for="suculenta in listaSuculentas" :key="suculenta.id">
-      <h1>{{ suculenta.common_name }}</h1>
-      <img :src="suculenta.image_url" :alt="suculenta.common_name" />
+  <div class="container">
+    <div v-if="listaSuculentas">
+      <div v-for="suculenta in listaSuculentas" :key="suculenta.id">
+        <h1 style="font-size: 14px;">{{ suculenta.common_name }}</h1>
+        <img :src="suculenta.default_image.regular_url" :alt="suculenta.common_name" style="max-width: 200px; max-height: 200px;" />
+      </div>
+    </div>
+    <div v-else>
+      Cargando suculentas...
     </div>
   </div>
-  <div v-else>
-    Cargando suculentas...
-  </div>
+  
 </template>
 
 <script>
@@ -38,4 +41,21 @@ export default {
 </script>
 
 <style>
+
+
+.suculenta-title {
+  font-size: 14px;
+}
+
+.suculenta-image {
+  width: 200px;
+  height: auto;
+}
 </style>
+
+
+
+
+
+
+
