@@ -21,8 +21,6 @@
               <div class="suma">{{ producto.Cantidad }}</div>
               <ion-icon name="add" @click="agregar(producto)"></ion-icon>
               <ion-icon name="remove" @click="restar(producto)"></ion-icon>
-              <!-- <font-awesome-icon :icon="['fas', 'arrow-up']" @click="agregar(producto)" class="me-2" style="color: #19b81c;"></font-awesome-icon>
-              <font-awesome-icon :icon="['fas', 'arrow-down']" @click="restar(producto)" style="color: #c93c2c;"></font-awesome-icon> -->
             </td>
             <td>${{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(producto.Precio) }}</td>
             <td><ion-icon name="trash-outline" @click="eliminar(producto)"></ion-icon></td>
@@ -32,9 +30,9 @@
       <div class="summary">
         <p>Total: $ {{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(valores) }}</p>
       </div>
-      <div class="d-grid gap-2 col-10 mx-auto">
-        <button class="btn btn-outline-success" type="button" @click="limpiarCarro(carrito)">Limpiar mi Carrito</button>
-        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#finalizarModal">Finalizar mi compra</button>
+      <div class="modal-footer d-grid gap-2 justify-content-center text-center"> 
+        <button class="btn btn-custom" type="button" @click="limpiarCarro(carrito)">Limpiar mi Carrito</button>
+        <button class="btn btn-custom" type="button" data-bs-toggle="modal" data-bs-target="#finalizarModal">Finalizar mi compra</button>
       </div>
     </div>
   </div>
@@ -62,16 +60,15 @@
                 </td>
                 <td>${{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(producto.Precio) }}</td>
               </tr>
+              <div class="summary m-3">
+                <p>Total compra: $ {{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(valores) }}</p>
+              </div>
             </tbody>
           </table>
         </div>
-        <div class="summary m-3">
-          <p>Total compra: $ {{ new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(valores) }}</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal">
-            <router-link to="/" class="nav-link active" @click="cierreSesion">Aceptar</router-link>
-          </button>
+        <div class="modal-footer d-flex align-items-center">
+          <input id="mandaEmail" type="email" v-model="mandaEmail" placeholder="Ingresa tu correo electrónico" style="border: 2px solid #C7b8c0; padding: 5px; border-radius: 5px; outline: none;">
+          <button type="button" class="btn btn-custom d-inline-block" data-bs-dismiss="modal" @click="finalizarCompra(producto)">Aceptar</button>
         </div>
       </div> 
     </div>
@@ -81,6 +78,7 @@
 <script >
 
 import {mapState, mapMutations} from 'vuex'
+import emailjs from '@emailjs/browser';
 
 
 export default {
@@ -88,19 +86,46 @@ export default {
 data(){
     return{
         productos: [],
+        mandaEmail: "",
     };
 },
 
 computed: {
-    ...mapState(['carrito']),
-    ...mapState(['valores'])    
+    ...mapState(['carrito','valores']),
   },
 
 methods: {
-    ...mapMutations(['agregar']),
-    ...mapMutations(['restar']),
-    ...mapMutations(['eliminar']),
-    ...mapMutations(['limpiarCarro'])
+    ...mapMutations(['agregar','restar','eliminar','limpiarCarro' ]),
+
+    finalizarCompra(producto) {
+  const self = this;
+  let mensaje = "";
+  let totalCompra = 0;
+
+  for (const producto of this.carrito) {
+    const precioUnitario = new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(producto.Precio);
+    const precioTotal = new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(producto.Precio * producto.Cantidad);
+
+    mensaje += `Producto: ${producto.Nombre}\nCantidad: ${producto.Cantidad}\nPrecio unitario: ${precioUnitario}\nPrecio total: ${precioTotal}\n\n`;
+
+    totalCompra += producto.Precio * producto.Cantidad;
+  }
+
+  mensaje += `Total compra: ${new Intl.NumberFormat('ES', { style: 'currency', currency: 'clp' }).format(totalCompra)}`;
+
+  emailjs.send("service_t57bfkg", "template_l6xng72", {
+    to_name: self.nombre,
+    from_name: 'Suculentas',
+    message: mensaje,
+    mail: self.mandaEmail,
+  }, "1NQ4h1XTEAjRRJwlY")
+    .then(() => {
+      alert('Correo Enviado, revisa tu bandeja de entrada');
+    }, (err) => {
+      alert(JSON.stringify(err));
+    });
+}
+
 }
 
 }
@@ -108,6 +133,22 @@ methods: {
 </script>
 
 <style scoped>
+.btn-custom {
+    margin-top: .5em;
+    padding: 10px 20px;
+    background-color: #b9c7b8;
+    border: none;
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 15em;
+    letter-spacing: 2px;
+  }
+    
+  .btn-custom:hover {
+    background-color: #C7b8c0;
+  }
 .cantidad {
   display: flex;
 }

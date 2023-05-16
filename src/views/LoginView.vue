@@ -1,5 +1,6 @@
 <template>
-    <div id="login" class="mt-5">
+  <div id="login-container"> 
+  <div id="login" class="d-flex flex-column justify-content-center align-items-center">
       <form @submit.prevent="login" ref="form">
         <div class="form-group">
           <label>Correo Electrónico</label>
@@ -13,8 +14,9 @@
       </form>
       <br />
       <div v-if="error" class="mb-4" >{{ error }}</div>
-    </div>
-  </template>
+  </div>
+</div>
+</template>
   
   <script>
   import { auth } from "@/auth/auth.service";
@@ -81,8 +83,19 @@
   }
   </script>
   
-  <style>
-  #login {
+  <style scoped>
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  #login-container {
+    flex-grow: 1;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,26 +103,26 @@
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     color: #2c3e50;
-    margin-top: -29px !important; /* Ajusta el margen superior para separarlo más del navbar */
-    margin-bottom: -29px !important; /* Ajusta el margen inferior para crear más espacio */
   }
-  
+
   .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
   }
+  
   .form-group label {
     margin-bottom: 15px;
     font-weight: 500;
   }
+  
   .form-group input {
     padding: 10px;
     border: 1px solid #C7b8c0;
     border-radius: 5px;
     font-size: 16px;
-    outline: none;
   }
+  
   button[type="submit"] {
     margin-top: 1.5em;
     padding: 10px 20px;
@@ -126,4 +139,4 @@
   button[type="submit"]:hover {
     background-color: #C7b8c0;
   }
-  </style> 
+</style>

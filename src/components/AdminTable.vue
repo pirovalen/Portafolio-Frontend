@@ -37,7 +37,7 @@
               </tr>
           </thead>
 
-        <TBody>
+        <tbody>
             <tr v-for="suculenta in suculentasFiltradas" :key="suculenta.id">
                 <td  class="text-center">{{suculenta.Categoria}}</td>
                 <td  class="text-center">{{suculenta.Codigo}}</td>
@@ -54,51 +54,8 @@
       </div>
       </div>
   </div>
-  
-<!-- MODAL MODIFICAR ITEM-->
 
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar Suculenta</h1>
-          <h1 class="modal-title fs-5" id="exampleModalLabel">{{  }}</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form class="form" @submit.prevent="mensajeEditarSuculenta()">
-            <label for="category-obj" class="form-label">Categoría</label>
-            <input type="text" class="form-control" v-model="mostrarSuculenta.Categoria">
-            <label for="code-obj" class="form-label">Código</label>
-            <input type="text" class="form-control" v-model="mostrarSuculenta.Codigo">
-            <label for="name-obj" class="form-label">Nombre</label>
-            <input type="text" class="form-control" v-model="mostrarSuculenta.Nombre">
-            <label for="description-obj" class="form-label">Descripción</label>
-            <input type="text" class="form-control" v-model="mostrarSuculenta.Descripcion">
-            <label for="price-obj" class="form-label">Precio</label>
-            <input type="number" min="1" class="form-control" v-model="mostrarSuculenta.Precio">
-            <label for="stock-obj" class="form-label">Stock</label>
-            <input type="number" min="0" class="form-control" v-model="mostrarSuculenta.Stock">
-            <label for="state-obj" class="form-label">Estado:</label>
-          <br>
-          <select id="estado" name="estado" class="form-control" v-model="mostrarSuculenta.Estado">
-            <option value="Activo" :selected="mostrarSuculenta.Estado === 'Activo'">Activo</option>
-            <option value="Inactivo" :selected="mostrarSuculenta.Estado === 'Inactivo'">Inactivo</option>
-          </select>
-          <br>
-            <label for="imagen-obj" class="form-label">Imagen</label>
-            <input type="text" class="form-control" v-model="mostrarSuculenta.Imagen">
-            <div class="modal-footer">
-              <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-modificar ms-2 p-2" data-bs-dismiss="modal" >Modificar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-<!-- MODAL AGREGAR ITEM -->
+  <!-- MODAL AGREGAR ITEM -->
 
   <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -108,32 +65,74 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          
-        <form class="form" @submit.prevent="confirmaAgregarSuculenta()">
-          <label for="category-obj" class="form-label" >Categoría</label>
-          <input type="text" class="form-control" v-model="agregarSuculenta.Categoria">
+          <form class="form" @submit.prevent="confirmaAgregarSuculenta" ref="createForm">
+            <label for="category-obj" class="form-label">Categoría</label>
+            <input type="text" class="form-control" v-model="agregarSuculenta.Categoria" required>
+            <label for="code-obj" class="form-label">Código</label>
+            <input type="text" class="form-control" v-model="agregarSuculenta.Codigo" required>
+            <label for="name-obj" class="form-label">Nombre</label>
+            <input type="text" class="form-control" v-model="agregarSuculenta.Nombre" required>
+            <label for="description-obj" class="form-label">Descripción</label>
+            <input type="text" class="form-control" v-model="agregarSuculenta.Descripcion" required>
+            <label for="price-obj" class="form-label">Precio</label>
+            <input type="number" min="1" class="form-control" v-model="agregarSuculenta.Precio" required>
+            <label for="stock-obj" class="form-label">Stock</label>
+            <input type="number" min="0" class="form-control" v-model="agregarSuculenta.Stock" required>
+            <label for="state-obj" class="form-label">Estado:</label>
+            <br>
+            <select id="estado" name="estado" class="form-control" v-model="mostrarSuculenta.Estado" required>
+              <option value="Activo" :selected="mostrarSuculenta.Estado === 'Activo'">Activo</option>
+              <option value="Inactivo" :selected="mostrarSuculenta.Estado === 'Inactivo'">Inactivo</option>
+            </select>
+            <br>
+            <label for="img-obj" class="form-label">Imagen</label>
+            <input type="text" class="form-control" v-model="agregarSuculenta.Imagen" required>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-crear ms-2 py-2">Agregar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- MODAL MODIFICAR ITEM-->
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar Suculenta</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form" @submit.prevent="confirmaModificarSuculenta()">
+          <input type="hidden" id="id-obj" v-model="mostrarSuculenta.Id">
+          <label for="category-obj" class="form-label">Categoría</label>
+          <input type="text" class="form-control" v-model="mostrarSuculenta.Categoria" required>
           <label for="code-obj" class="form-label">Código</label>
-          <input type="text" class="form-control" v-model="agregarSuculenta.Codigo">
+          <input type="text" class="form-control" v-model="mostrarSuculenta.Codigo" required>
           <label for="name-obj" class="form-label">Nombre</label>
-          <input type="text" class="form-control" v-model="agregarSuculenta.Nombre">
+          <input type="text" class="form-control" v-model="mostrarSuculenta.Nombre" required>
           <label for="description-obj" class="form-label">Descripción</label>
-          <input type="text" class="form-control" v-model="agregarSuculenta.Descripcion">
+          <input type="text" class="form-control" v-model="mostrarSuculenta.Descripcion" required>
           <label for="price-obj" class="form-label">Precio</label>
-          <input type="number" min="1" class="form-control" v-model="agregarSuculenta.Precio">
+          <input type="number" min="1" class="form-control" v-model="mostrarSuculenta.Precio" required>
           <label for="stock-obj" class="form-label">Stock</label>
-          <input type="number" min="0" class="form-control" v-model="agregarSuculenta.Stock">
+          <input type="number" min="0" class="form-control" v-model="mostrarSuculenta.Stock" required>
           <label for="state-obj" class="form-label">Estado:</label>
           <br>
-          <select id="estado" name="estado" class="form-control" v-model="mostrarSuculenta.Estado">
+          <select id="estado" name="estado" class="form-control" v-model="mostrarSuculenta.Estado" required>
             <option value="Activo" :selected="mostrarSuculenta.Estado === 'Activo'">Activo</option>
             <option value="Inactivo" :selected="mostrarSuculenta.Estado === 'Inactivo'">Inactivo</option>
           </select>
           <br>
           <label for="img-obj" class="form-label">Imagen</label>
-          <input type="text" class="form-control" v-model="agregarSuculenta.Imagen">
+          <input type="text" class="form-control" v-model="mostrarSuculenta.Imagen" required>
           <div class="modal-footer">
-            <button type="button" class="btn btn-cancelar " data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-crear ms-2 py-2" data-bs-dismiss="modal" >Agregar</button>
+            <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-crear ms-2 py-2">Modificar</button>
           </div>
         </form>
       </div>
@@ -169,6 +168,41 @@ export default {
     },
       ...mapActions(['getSuculentas', 'getSuculenta', 'crearSuculenta', 'modificarSuculenta','eliminarSuculenta', 'filtroName']),
 
+       // Función de validación del formulario
+   validateForm(formId) {
+    const form = document.getElementById(formId);
+    const inputs = form.getElementsByTagName('input');
+
+    // Verificar que todos los campos estén llenos
+    for (let i = 0; i < inputs.length; i++) {
+      if (inputs[i].hasAttribute('required') && inputs[i].value.trim() === '') {
+        alert('Por favor, complete todos los campos.');
+        return false;
+      }
+    }
+
+    return true;
+  },
+
+  // Controladores de eventos para los modales
+  handleCreateModalSubmit(event) {
+      event.preventDefault();
+      if (this.validateForm('createForm')) {
+        // Lógica adicional para agregar el item
+        console.log('Agregando item...');
+        // Aquí puedes llamar a tu función confirmaAgregarSuculenta()
+      }
+    },
+
+    handleEditModalSubmit(event) {
+      event.preventDefault();
+      if (this.validateForm('editForm')) {
+        // Lógica adicional para modificar el item
+        console.log('Modificando item...');
+        // Aquí puedes llamar a tu función confirmaModificarSuculenta()
+      }
+    },
+
     // SWEET ALERT AGREGAR
 
       confirmaAgregarSuculenta(){
@@ -182,6 +216,7 @@ export default {
             this.crearSuculenta(this.agregarSuculenta)
             this.getSuculentas()
             this.resetearSuculenta(this.agregarSuculenta)
+            
           } else if (result.isDenied) {
             Swal.fire('Los cambios no fueron guardados', '', 'info')
           }
@@ -210,7 +245,7 @@ export default {
       
       // SWEET ALERT EDITAR
 
-      mensajeEditarSuculenta(){
+      confirmaModificarSuculenta(){
         Swal.fire({
           title: '¿Estás seguro de los cambios realizados?',
           showCancelButton: true,
@@ -220,6 +255,7 @@ export default {
             Swal.fire('¡Listo!, La suculenta ha sido modificada exitosamente ', '', 'success')
             this.getSuculentas() 
             this.modificarSuculenta(this.mostrarSuculenta)
+            
           } else if (result.isDenied) {
             Swal.fire('Los cambios no fueron guardados', '', 'info')
           }
@@ -230,13 +266,13 @@ export default {
 
       resetearSuculenta(){
         this.agregarSuculenta = {Categoria: '', Codigo: '', Nombre: '', Descripcion: '', Precio: '', Stock: '', Estado: '',  Imagen: ''}
-      },
+      }
     },
-
     computed : {
     ...mapState(['suculentas', 'mostrarSuculenta', 'agregarSuculenta', 'suculentasFiltradas']),
-    },  
-  }
+   },
+  };
+
 </script>
       
 <style>
