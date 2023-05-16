@@ -39,16 +39,14 @@
               <li class="list-group-item">Nombre: {{ suculenta.Nombre }}</li>
               <li class="list-group-item">Precio: {{ new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'  }).format(suculenta.Precio) }}</li>
             </ul>
-            <!-- <button :class="suculenta.Estado === 'Activo' ? 'btnComprar' : 'btnDisabled'" :disabled="suculenta.Estado === 'Activo'" @click="agregarProducto(suculenta)">
-              {{ suculenta.Estado === 'Activo' ? 'Comprar' : 'No disponible' }}
-            </button> -->
-            <!-- <button @click="verEstado(suculenta.Estado)">click</button> -->
             <button @click="agregar(suculenta)" :class="suculenta.Estado === 'Activo' ? 'btnComprar' : 'btnDisabled'" :disabled="suculenta.Estado === 'Inactivo'">{{suculenta.Estado === 'Activo' ? 'Comprar' : 'No disponible'}}</button>
           </div>
         </div>
       </div>
     </div>
-  <SucculentsApi/>
+    <div class="container-btn"> 
+      <button class="btn" @click="goToOthers">Aquí</button>
+    </div>
   <CartOffCanvas></CartOffCanvas>
   </template>
 
@@ -58,7 +56,6 @@
 import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
 import {mapMutations, mapActions, mapState} from 'vuex' 
 import Swal from 'sweetalert2';
-import SucculentsApi from '@/components/SucculentsApi.vue';
 import CartOffCanvas from '@/components/CartOffCanvas.vue';
 
 export default {
@@ -72,7 +69,6 @@ export default {
 
     components: {
         FadeLoader,
-        SucculentsApi,
         CartOffCanvas
     }, 
 
@@ -86,7 +82,9 @@ export default {
   // verEstado(estado){
   //   console.log(estado);
   // },
-
+  goToOthers(){
+    this.$router.push('/OtherPlants');
+  },
   filterSuculentas() {
     if (this.selectSuculentas === 'Todas') {
       this.$store.state.suculentas = this.$store.state.suculentasFiltradas;
@@ -222,6 +220,27 @@ export default {
   color: rgb(70, 70, 70); 
   border: 1px solid #C7b8c0;
   padding: .6em 0;
+}
+.container-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2px;
+}
+.btn {
+  background-color: #C7b8c0;
+  color: black;
+  border: 1px solid #C7b8c0;
+  letter-spacing: 3px;
+  padding: .6em 0;
+}
+
+.btn:hover {
+  background-color: #a0b09d;
+}
+
+.btn:active {
+  background-color: #C7B8C0;
 }
 
 </style>

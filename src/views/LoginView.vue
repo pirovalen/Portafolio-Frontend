@@ -90,8 +90,8 @@
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     color: #2c3e50;
-    margin-top: 124px !important; /* Ajusta el margen superior para separarlo más del navbar */
-    margin-bottom: 126px !important; /* Ajusta el margen inferior para crear más espacio */
+    margin-top: -29px !important; /* Ajusta el margen superior para separarlo más del navbar */
+    margin-bottom: -29px !important; /* Ajusta el margen inferior para crear más espacio */
   }
   
   .form-group {
