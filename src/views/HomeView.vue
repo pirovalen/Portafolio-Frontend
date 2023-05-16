@@ -1,4 +1,5 @@
 <template>
+  <div class="carousel-container"> 
   <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
     <div class="carousel-inner">
       <div class="carousel-item active align-middle">
@@ -24,21 +25,31 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <style>
+
+.carousel-container {
+  margin-top: 100px; 
+}
+
 .carousel-item img {
-  max-height: 224px !important;
+  max-height: 300px;
+  max-width: 100%;
   object-fit: contain;
 }
 
 .carousel-caption {
   background-color: rgba(0, 0, 0, 0.385);
   border-radius: 1rem;
-  max-width: 600px;
-  margin-inline: auto;
-  margin-top: -10px;
-  margin-bottom: -80px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
 }
 
 .carousel-item h5 {

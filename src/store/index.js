@@ -81,7 +81,7 @@ export default createStore({
         state.valores = state.valores - (payload.Precio * payload.Cantidad)
         payload.Cantidad = 1
     }
-    else if(payload.cantidad > 1){
+    else if(payload.Cantidad > 1){
         payload.Cantidad = payload.Cantidad - 1
         state.valores = state.valores - (payload.Precio)
     }

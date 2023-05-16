@@ -19,7 +19,7 @@ export default {
   methods: {
     sendWhatsAppMessage() {
       const phoneNumber = '+56985161258';
-      // const message = 'Que escribo aquí';
+      const message = 'Si necesitas más información contáctate con nosotros';
 
       const link = `https://api.whatsapp.com/send?phone=${encodeURIComponent(phoneNumber)}&text=${encodeURIComponent(message)}`;
       window.open(link);
