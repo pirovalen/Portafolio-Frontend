@@ -28,17 +28,17 @@
 
 <style>
 .carousel-item img {
-  max-height: 432px !important;
+  max-height: 224px !important;
   object-fit: contain;
 }
 
 .carousel-caption {
   background-color: rgba(0, 0, 0, 0.385);
   border-radius: 1rem;
-  max-width: 800px;
+  max-width: 600px;
   margin-inline: auto;
-  margin-top: 80px;
-  margin-bottom: 20px;
+  margin-top: -10px;
+  margin-bottom: -80px;
 }
 
 .carousel-item h5 {

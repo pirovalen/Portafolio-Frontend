@@ -3,7 +3,9 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import AdminView from '../views/AdminView.vue'
 import PlantasView from '../views/PlantasView.vue'
+import OtherPlants from '../views/OtherPlants.vue'
 import NotFound from '../views/NotFound.vue'
+
 
 
 const routes = [
@@ -21,6 +23,11 @@ const routes = [
     path: '/AdminView',
     name: 'AdminView',
     component: AdminView
+  },
+  {
+    path: '/OtherPlants',
+    name: 'OtherPlants',
+    component: OtherPlants
   },
   {
     path: '/PlantasView',
