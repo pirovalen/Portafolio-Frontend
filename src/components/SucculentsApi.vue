@@ -17,8 +17,8 @@
     </div>
   </div>
   <div class="container-btn">
-    <button class="btn" @click="disminuir">back</button> 
-    <button class="btn" @click="aumentar">next</button>
+    <button class="btn" @click="disminuir">Atrás</button> 
+    <button class="btn" @click="aumentar">siguiente</button>
 
     <span>{{ page }}</span>
   </div>

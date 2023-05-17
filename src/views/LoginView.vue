@@ -3,12 +3,14 @@
   <div id="login" class="d-flex flex-column justify-content-center align-items-center">
       <form @submit.prevent="login" ref="form">
         <div class="form-group">
-          <label>Correo Electrónico</label>
-          <input name="email" type="email" v-model.trim="loginForm.email" required />
+          <br> 
+          <br> 
+          <input name="email" id="email" type="email" v-model.trim="loginForm.email" required placeholder="Correo" />
         </div>
         <div class="form-group">
-          <label>Contraseña</label>
-          <input name="password" type="password" v-model.trim="loginForm.password" required />
+          <br> 
+          <br> 
+          <input name="password" id="password" type="password" v-model.trim="loginForm.password" required placeholder="Contraseña" />
         </div>
         <button type="submit">Iniciar Sesión</button>
       </form>
@@ -85,16 +87,11 @@
   
   <style scoped>
   
-  body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-  }
+  
 
   #login-container {
     flex-grow: 1;
+    max-height: 100%;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -102,35 +99,62 @@
     align-items: center;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
-    color: #2c3e50;
+    background-image: url('../assets/Login.jpg');
+    background-size: cover;
+    background-position: center;
   }
 
   .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
-  }
-  
-  .form-group label {
-    margin-bottom: 15px;
-    font-weight: 500;
+    margin-top: -25px;
   }
   
   .form-group input {
     padding: 10px;
-    border: 1px solid #C7b8c0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 3px solid black;
+    background-color: #C7b8c0;
     border-radius: 5px;
-    font-size: 16px;
+    color: white;
+    font-size: 20px;
+  }
+  #password{
+    margin-top: 1.5em;
+    margin-top: 1em;
+    padding: 10px 20px;
+    background-color: #92868c;
+    border: 3px solid white;;
+    color: white !important;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    width: 15em;
+    letter-spacing: 2px;
+  }
+  #email{
+      margin-top: 1.5em;
+      padding: 10px 20px;
+      background-color: #92868c;
+      border: 3px solid white;;
+      color: white !important;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 20px;
+      width: 15em;
+      letter-spacing: 2px;
   }
   
   button[type="submit"] {
     margin-top: 1.5em;
     padding: 10px 20px;
-    background-color: #b9c7b8;
-    border: none;
-    color: #ffffff;
+    background-color: #92868c;
+    border: 3px solid white;;
+    color: white;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
     width: 15em;
     letter-spacing: 2px;
@@ -139,4 +163,5 @@
   button[type="submit"]:hover {
     background-color: #C7b8c0;
   }
+  
 </style>
