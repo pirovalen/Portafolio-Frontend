@@ -13,6 +13,7 @@
           <li><router-link class="listNav DatosInt" to="/PlantasView">Catálogo</router-link></li>
           <li v-if="loginTrue"><router-link class="listNav DatosInt" to="/AdminView">Mantenedor</router-link></li>
           <li v-if="!loginTrue"><router-link class="listNav DatosInt" to="/LoginView">Login</router-link></li>
+          <li class="nav-item"><button type="button" class="btn-logout px-3" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="(loginTrue)">Logout</button></li>
           <li><button class="btn-cart" @click="toggleOffcanvas">
             <i class="bi bi-bag-fill" style="color: #888"></i>
           </button></li>
@@ -164,6 +165,32 @@ header {
 
 .navbar-links a:hover {
   color: #92868c;
+}
+.btn-logout{
+  text-decoration: none;
+  color: white;
+  border: none;
+  transition: all 0.5s ease;
+  background-color: #b9c7b8;
+}
+.btn-logout:hover{
+  transform: scale(1.2);
+}
+.btn.btn-no{
+  background-color: #C7b8c0;
+  color: azure;
+}
+.btn.btn-no:hover{
+  background-color: #b9c7b8;
+  color: azure;
+}
+.btn.btn-si{
+  background-color: #C7b8c0;
+  color: azure;
+}
+.btn.btn-si:hover{
+  background-color: #b9c7b8;
+  color: azure;
 }
 .btn-cart {
   background: none;
