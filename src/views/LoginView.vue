@@ -143,6 +143,7 @@
       text-align: center;
       border-radius: 5px;
       font-size: 20px;
+      cursor: pointer;
       width: 15em;
       letter-spacing: 2px;
   }
