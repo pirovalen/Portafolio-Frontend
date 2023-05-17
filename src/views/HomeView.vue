@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="carousel-item align-middle">
-        <img src="../assets/1.jpg" class="imgHome d-block w-100" alt="">
+        <img src="../assets/3.jpg" class="imgHome d-block w-100" alt="">
         <div class="carousel-caption d-none d-md-block align-middle d-flex flex-column justify-content-center">
           <h5>Experiencia y calidad</h5>
           <p>Nos comprometemos a ofrecerte suculentas de la más alta calidad. Nos aseguramos de que cada planta que llegue a tus manos esté en perfectas condiciones. Cuidamos cada detalle, desde la selección de las variedades más hermosas hasta el embalaje cuidadoso para el envío. </p>
@@ -28,20 +28,32 @@
 </div>
 </template>
 
-<style>
+<style scoped>
 
 .carousel-container {
-  margin-top: 100px; 
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 450px;
+}
+
+body {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .carousel-item img {
-  max-height: 300px;
   max-width: 100%;
-  object-fit: contain;
+  max-height: 450px;
+  object-fit: cover;
+}
+.carousel-inner {
+  height: auto;
 }
 
 .carousel-caption {
-  background-color: rgba(0, 0, 0, 0.385);
+  background-color: rgba(116, 58, 124, 0.385);
   border-radius: 1rem;
   position: absolute;
   bottom: 0;

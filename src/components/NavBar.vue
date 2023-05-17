@@ -116,7 +116,7 @@ header {
   color: white;
   padding: .5rem 2rem;
   font-size: 16px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -163,7 +163,7 @@ header {
 }
 
 .navbar-links a:hover {
-  color: #333;
+  color: #92868c;
 }
 .btn-cart {
   background: none;

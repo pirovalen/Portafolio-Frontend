@@ -5,7 +5,7 @@
         <div class="col-md-6 offset-md-3 mb-4">
           <h5>¡Para comunicarte con nosotros, escríbenos a WhatsApp!</h5>
           <div class="social-icons">
-            <p>Estamos disponibles de lunes a viernes de 9:00 a 18:00.</p>
+            <h6>Estamos disponibles de lunes a viernes de 9:00 a 18:00.</h6>
             <a href="#" @click="sendWhatsAppMessage"><i class="fab fa-whatsapp"></i></a>
           </div>
         </div>
@@ -30,17 +30,18 @@ export default {
 
 <style>
 .footer {
-  bottom: 0;
   left: 0;
   width: 100%;
   height: 154px;
   padding: 20px 0;
   font-size: 14px;
-  margin-top: 7.2em;
+  margin-top: 5px;
+  margin-bottom: 0px;
 }
 
-.footer h3 {
-  color: #333;
+.footer h5,
+.footer h6 {
+  color: white;
 }
 
 .social-icons {
@@ -50,12 +51,12 @@ export default {
 .social-icons a {
   display: inline-block;
   margin-right: 10px;
-  color: #333;
+  color: white;
   font-size: 20px;
 }
 
 .social-icons a:hover {
-  color: #888;
+  color: #92868c;
 }
 
 </style>

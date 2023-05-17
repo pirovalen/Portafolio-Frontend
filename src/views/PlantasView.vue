@@ -44,8 +44,8 @@
         </div>
       </div>
     </div>
-    <div class="container-btn"> 
-      <button class="btn" @click="goToOthers">Aquí</button>
+    <div class="container-btnAqui"> 
+      <button class="btnAqui" @click="goToOthers">Aquí</button>
     </div>
   <CartOffCanvas></CartOffCanvas>
   </template>
@@ -79,10 +79,7 @@ export default {
     methods: {
       ...mapMutations(['agregar']),
     ...mapActions(['getSuculentas', 'agregarProducto']),
-  // verEstado(estado){
-  //   console.log(estado);
-  // },
-  goToOthers(){
+   goToOthers(){
     this.$router.push('/OtherPlants');
   },
   filterSuculentas() {
@@ -135,10 +132,6 @@ export default {
     
     mounted(){
         this.$store.state.suculentas=[]
-        // if(this.$store.state.usuarioConectado===''){    
-        //     this.showAlert('No hay usuario conectado', 'Debe loguearse')
-        //     this.$router.push('/login')
-        // }
     }
 }
 </script>
@@ -221,26 +214,25 @@ export default {
   border: 1px solid #C7b8c0;
   padding: .6em 0;
 }
-.container-btn {
+.container-btnAqui {
+  position: relative; /* Agregamos posición relativa al contenedor del botón */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 2px;
-}
-.btn {
-  background-color: #C7b8c0;
-  color: black;
-  border: 1px solid #C7b8c0;
-  letter-spacing: 3px;
-  padding: .6em 0;
+  z-index: 1; /* Ajustamos el z-index para que esté por encima del contenido */
 }
 
-.btn:hover {
-  background-color: #a0b09d;
+.btnAqui {
+  padding: 10px 20px;
+  background-color: #b9c7b8;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  position: relative; /* Agregamos posición relativa al botón */
+  z-index: -1; /* Ajustamos el z-index para que esté por detrás del contenido */
 }
-
-.btn:active {
-  background-color: #C7B8C0;
-}
-
 </style>
