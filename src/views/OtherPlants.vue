@@ -1,15 +1,17 @@
 <template>
   <div class="container">
-    <transition name="fade-down">
-      <transition-group>
         <div class="content" v-if="succulentsLoaded">
+          <div class="my-4 d-flex flex-column align-items-center"> 
+            <h1 class="title">¡Si eres amante de las plantas, aquí tienes una galería con muchas fotos de plantas con sus nombres!</h1>
+            <img class="mx-auto" src="../assets/plantita2.webp" alt="" style="margin-top: 50px;"> 
+          </div>
           <div class="col-auto">
             <SucculentsApi></SucculentsApi>
           </div>
         </div>
-      </transition-group>
-    </transition>
+     
     <div class="spinner-container" v-if="loading && !succulentsLoaded">
+
       <fade-loader :color="color" :size="size"></fade-loader>
     </div>
   </div>
@@ -42,6 +44,12 @@ export default {
       }, 2000);
     },
   },
+  computed:{
+    cambiaPagina(){
+    return this.$route.params.nro
+    }
+    
+  },
 
   mounted() {
     this.cargarImagenes();
@@ -51,6 +59,14 @@ export default {
 </script>
 
 <style>
+.title {
+  color: #92868c;
+  font-size: 40px;
+  text-align: center;
+  margin-top: 80px;
+  max-width: fit-content;
+  font-family: 'Montserrat', sans-serif;
+}
 .spinner-container {
   display: flex;
   align-items: center;

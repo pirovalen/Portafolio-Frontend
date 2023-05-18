@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-container"> 
-  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
       <div class="carousel-item active align-middle">
         <img src="../assets/1.jpg" class="imgHome d-block w-100" alt="">
