@@ -13,6 +13,7 @@ export default createStore({
     usuarioConectado: "",
     carga: false,
     suculentasFiltradas: [],
+    carrito: JSON.parse(localStorage.getItem('Cantidad')) ? JSON.parse(localStorage.getItem('Cantidad')) : [],
     carrito: JSON.parse(localStorage.getItem('carrito')) ? JSON.parse(localStorage.getItem('carrito')) : [],
     valores: JSON.parse(localStorage.getItem('valores')) ? JSON.parse(localStorage.getItem('valores')) : 0,
     cantCarrito: JSON.parse(localStorage.getItem('cantCarrito')) ? JSON.parse(localStorage.getItem('cantCarrito'))   : 0,
@@ -61,13 +62,15 @@ export default createStore({
       
       if(yaExiste){
           payload.Cantidad = payload.Cantidad + 1 
-          state.valores = state.valores+(payload.Precio) 
+          state.valores = state.valores+(payload.Precio * Cantidad) 
       }else{
-          state.carrito.push(payload) 
+          state.carrito.push(payload)
+          payload.Cantidad = 1  
           // state.carrito = JSON.parse(localStorage.getItem('carrito')),
           state.valores = state.valores+(payload.Precio) 
       }
       state.cantCarrito = state.carrito.length; 
+      localStorage.setItem('carrito', JSON.stringify(state.Cantidad))
       localStorage.setItem('carrito', JSON.stringify(state.carrito))
       localStorage.setItem('valores', JSON.stringify(state.valores))
       localStorage.setItem('cantCarrito', JSON.stringify(state.carrito.length))

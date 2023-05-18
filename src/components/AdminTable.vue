@@ -80,9 +80,9 @@
             <input type="number" min="0" class="form-control" v-model="agregarSuculenta.Stock" required>
             <label for="state-obj" class="form-label">Estado:</label>
             <br>
-            <select id="estado" name="estado" class="form-control" v-model="mostrarSuculenta.Estado" required>
-              <option value="Activo" :selected="mostrarSuculenta.Estado === 'Activo'">Activo</option>
-              <option value="Inactivo" :selected="mostrarSuculenta.Estado === 'Inactivo'">Inactivo</option>
+            <select id="estado" name="estado" class="form-control" v-model="agregarSuculenta.Estado" required>
+              <option value="Activo" :selected="agregarSuculenta.Estado === 'Activo'">Activo</option>
+              <option value="Inactivo" :selected="agregarSuculenta.Estado === 'Inactivo'">Inactivo</option>
             </select>
             <br>
             <label for="img-obj" class="form-label">Imagen</label>
