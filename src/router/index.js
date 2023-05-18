@@ -25,7 +25,7 @@ const routes = [
     component: AdminView
   },
   {
-    path: '/OtherPlants',
+    path: '/OtherPlants/:nro',
     name: 'OtherPlants',
     component: OtherPlants
   },

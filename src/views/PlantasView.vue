@@ -80,7 +80,8 @@ export default {
       ...mapMutations(['agregar']),
     ...mapActions(['getSuculentas', 'agregarProducto']),
    goToOthers(){
-    this.$router.push('/OtherPlants');
+    let nropagina = 1;
+    this.$router.push(`/OtherPlants/${nropagina}`);
   },
   filterSuculentas() {
     if (this.selectSuculentas === 'Todas') {
