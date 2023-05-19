@@ -35,8 +35,8 @@ export default {
   height: 154px;
   padding: 20px 0;
   font-size: 14px;
-  margin-top: 5px;
-  margin-bottom: 0px;
+  margin-top: auto;
+  
 }
 
 .footer h5,
