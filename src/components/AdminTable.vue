@@ -30,7 +30,6 @@
                   <th scope="col" class="text-center">Descripción</th>
                   <th scope="col" class="text-center">Precio</th>
                   <th scope="col" class="text-center">Stock</th>
-                  <!-- <th scope="col" class="text-center">Vendido</th> -->
                   <th scope="col" class="text-center">Estado</th>
                   <th scope="col" class="text-center">Modificar</th>
                   <th scope="col" class="text-center">Eliminar</th>
@@ -154,6 +153,7 @@ export default {
   data(){
     return{  
       agregarSuculenta: {Categoria: '', Codigo: '', Nombre: '', Descripcion: '', Precio: '', Stock: '',Estado: '',  Imagen: ''},
+      idBorrarSuculenta: '',
       color: '#c7b8c0',
       texto : '',    
     }
@@ -188,18 +188,15 @@ export default {
   handleCreateModalSubmit(event) {
       event.preventDefault();
       if (this.validateForm('createForm')) {
-        // Lógica adicional para agregar el item
         console.log('Agregando item...');
-        // Aquí puedes llamar a tu función confirmaAgregarSuculenta()
+     
       }
     },
 
     handleEditModalSubmit(event) {
       event.preventDefault();
       if (this.validateForm('editForm')) {
-        // Lógica adicional para modificar el item
         console.log('Modificando item...');
-        // Aquí puedes llamar a tu función confirmaModificarSuculenta()
       }
     },
 
@@ -215,8 +212,7 @@ export default {
             Swal.fire('¡Listo! La suculenta se ha agregado exitosamente ', '', 'success')
             this.crearSuculenta(this.agregarSuculenta)
             this.getSuculentas()
-            this.resetearSuculenta(this.agregarSuculenta)
-            
+            this.resetearSuculenta(this.agregarSuculenta) 
           } else if (result.isDenied) {
             Swal.fire('Los cambios no fueron guardados', '', 'info')
           }
